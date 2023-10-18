@@ -13,6 +13,8 @@ namespace TelegramBot
         {
             Init();
         }
+
+
         #region Private
         [Obsolete]
         private static void Init()
@@ -31,7 +33,6 @@ namespace TelegramBot
             TelegramCommandHandler telegram = new(bankService, configuration);
             telegram.Get();
         }
-        [Obsolete]
         private static ServiceCollection Load(IConfiguration configuration)
         {
             ServiceCollection serviceCollection = new();
