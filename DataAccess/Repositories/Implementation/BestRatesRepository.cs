@@ -28,7 +28,7 @@ namespace DataAccess.Repositories.Implementation
                 .Select(_ => _.Code).ToListAsync();
 
             int lastIteration = _dBModel.Rates.Max(_ => _.Iteration);
-            IQueryable<Models.RateModel> lastRates = _dBModel.Rates.Where(_ => _.Iteration == lastIteration);
+            IQueryable<RateModel> lastRates = _dBModel.Rates.Where(_ => _.Iteration == lastIteration);
 
 
             foreach (string currency in currencies)

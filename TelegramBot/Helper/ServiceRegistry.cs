@@ -26,7 +26,9 @@ namespace TelegramBot.Helper
             _ = services.AddScoped<ICurrencies, Currencies>();
             _ = services.AddSingleton<ICommandHendler, CommandHandler>();
             _ = services.AddScoped<CommandSwitcher>();
+            _ = services.AddScoped<TelegramCommandHandler>();
             _ = services.AddAutoMapper(typeof(RatesProfile));
+
             return services;
         }
 

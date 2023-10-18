@@ -1,5 +1,5 @@
 ﻿using Core.Services.Interfaces;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Text.RegularExpressions;
 using Telegram.Bot;
@@ -16,10 +16,9 @@ namespace TelegramBot
         private readonly TelegramBotClient Bot;
         private readonly IBankService bankService;
 
-        public TelegramCommandHandler(IBankService bankService)
+        public TelegramCommandHandler(IBankService bankService, IConfiguration configuration)
         {
-            Settings settings = JsonConvert.DeserializeObject<Settings>(System.IO.File.ReadAllText("settings.json"));
-            _token = settings.Token;
+            _token = configuration["token"];
             Bot = new TelegramBotClient(_token);
             this.bankService = bankService;
         }
