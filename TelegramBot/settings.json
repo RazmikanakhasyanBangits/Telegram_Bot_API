@@ -1,0 +1,5 @@
+﻿{
+  "token": "6574208547:AAG6hFeUM5Oq_yMVuWY-0jAaY4CaUj0nKiI",
+  "ConnectionString": "server=PUNCK2021;database=Tech42_TelegramBotDB;Integrated Security=True",
+  "baseUrl": "https://localhost:44363"
+}
