@@ -35,15 +35,15 @@ namespace DataAccess.Repositories.Implementation
             {
                 BestRateModel bestRateModel = new();
 
-                IIncludableQueryable<Models.RateModel, Bank> currencyRate = lastRates
+                IIncludableQueryable<RateModel, Bank> currencyRate = lastRates
                            .Where(_ => _.FromCurrency == currency && _.ToCurrency == _baseCurrency)
                            .Include(_ => _.Bank);
 
-                Models.RateModel currencyRateBuy = await currencyRate
+                RateModel currencyRateBuy = await currencyRate
                            .OrderByDescending(_ => _.BuyValue)
                            .FirstOrDefaultAsync();
 
-                Models.RateModel currencyRateSell = await currencyRate
+                RateModel currencyRateSell = await currencyRate
                     .OrderBy(_ => _.SellValue)
                     .FirstOrDefaultAsync();
                 if (currencyRateBuy != null)

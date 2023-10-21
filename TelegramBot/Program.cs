@@ -32,7 +32,7 @@ namespace TelegramBot
             IBankService bankService = scope.ServiceProvider.GetRequiredService<IBankService>();
             CommandSwitcher switcher = scope.ServiceProvider.GetRequiredService<CommandSwitcher>();
             //ILocation location = scope.ServiceProvider.GetRequiredService<ILocation>();
-            ICommandHendler telegram = scope.ServiceProvider.GetRequiredService<ICommandHendler>();
+            ICommandHandler telegram = scope.ServiceProvider.GetRequiredService<ICommandHandler>();
 
             // GetLocationResponseModel result = await location.GetLocationsAsync(nameof(AmeriaBankDataScrapper));
             telegram.Get();

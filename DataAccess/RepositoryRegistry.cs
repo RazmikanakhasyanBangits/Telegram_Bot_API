@@ -13,9 +13,9 @@ namespace DataAccess
             _ = services.AddScoped<IBankRepository, BankRepository>();
             _ = services.AddScoped<IRatesRepository, RatesRepository>();
         }
-        public static void RegisterDbContext(IServiceCollection services, string conenctionString)
+        public static void RegisterDbContext(IServiceCollection services, string connectionString)
         {
-            _ = services.AddDbContext<TelegramBotDbContext>(_ => _.UseSqlServer(conenctionString));
+            _ = services.AddDbContext<TelegramBotDbContext>(_ => _.UseSqlServer(connectionString));
         }
     }
 }

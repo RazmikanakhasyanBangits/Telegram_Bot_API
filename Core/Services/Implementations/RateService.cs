@@ -13,7 +13,7 @@ namespace Core.Services.Implementations
             _dataScrapper = dataScrapper;
         }
 
-        public void BulknInsert(IEnumerable<RateModel> rate)
+        public void BulkInsert(IEnumerable<RateModel> rate)
         {
             _dataScrapper.BulkInsert(rate);
         }

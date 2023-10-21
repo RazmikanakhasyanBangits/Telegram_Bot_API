@@ -1,6 +1,6 @@
 ﻿namespace TelegramBot.Abstraction;
 
-public interface ICommandHendler
+public interface ICommandHandler
 {
     void Get();
 }

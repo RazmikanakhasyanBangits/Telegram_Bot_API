@@ -28,7 +28,7 @@ namespace TelegramBot.Helper
             _ = services.AddScoped<ILocationService, LocationService>();
 
             _ = services.AddSingleton(LoadConfiguration());
-            _ = services.AddSingleton<ICommandHendler, TelegramCommandHandler>();
+            _ = services.AddSingleton<ICommandHandler, TelegramCommandHandler>();
             _ = services.AddScoped<AmeriaBankDataScrapper>();
             _ = services.AddScoped<CommandSwitcher>();
             _ = services.AddScoped<TelegramCommandHandler>();

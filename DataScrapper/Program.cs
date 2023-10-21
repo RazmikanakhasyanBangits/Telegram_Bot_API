@@ -56,7 +56,7 @@ namespace DataScrapper
             }
 
             RateService _service = new(new RatesRepository(new TelegramBotDbContext()));
-            _service.BulknInsert(all.Select(_ => new RateModel
+            _service.BulkInsert(all.Select(_ => new RateModel
             {
                 BankId = _.BankId,
                 BuyValue = _.BuyValue,

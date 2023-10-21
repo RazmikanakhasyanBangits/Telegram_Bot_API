@@ -10,6 +10,7 @@ namespace Core.Services.Interfaces
         Task<string> BestChange(string from, string to, double amount);
         string GetAll();
         string GetAllBest();
+        Task<string> GetAllBestDistances(double latitude, double longitude);
         string GetAvailable();
     }
 }

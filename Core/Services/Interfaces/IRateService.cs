@@ -9,6 +9,6 @@ namespace Core.Services.Interfaces
 {
     public interface IRateService
     {
-        void BulknInsert(IEnumerable<DataAccess.Models.RateModel> currency);
+        void BulkInsert(IEnumerable<DataAccess.Models.RateModel> currency);
     }
 }

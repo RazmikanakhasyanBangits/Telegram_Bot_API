@@ -1,4 +1,6 @@
-﻿using Core.Helper;
+﻿// Ignore Spelling: Evoca
+
+using Core.Helper;
 using Core.Services.Implementations;
 using Core.Services.Interfaces;
 using DataScrapper.Abstraction;

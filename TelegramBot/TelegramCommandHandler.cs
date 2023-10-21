@@ -13,7 +13,7 @@ using TelegramBot.Helper;
 
 namespace TelegramBot
 {
-    public class TelegramCommandHandler : ICommandHendler
+    public class TelegramCommandHandler : ICommandHandler
     {
         private readonly string _token;
         private readonly TelegramBotClient Bot;
@@ -28,6 +28,27 @@ namespace TelegramBot
             this.location = location;
         }
 
+        [Obsolete]
+        private async void Bot_OnLocation(object sender, MessageEventArgs e)
+        {
+            if (e.Message.Type == MessageType.Location)
+            {
+                Telegram.Bot.Types.Location userLocation = e.Message.Location;
+                double latitude = userLocation.Latitude;
+                double longitude = userLocation.Longitude;
+                string result = await bankService.GetAllBestDistances(latitude, longitude);
+                _ = await Bot.SendTextMessageAsync(
+                    chatId: e.Message.Chat.Id,
+                    text: result
+                );
+                ReplyKeyboardMarkup buttons = ButtonSettings.ShowButtons(e.Message.Chat.Id, Bot);
+                _ = await Bot.SendTextMessageAsync(
+                e.Message.Chat.Id,
+                "Processing...",
+                replyMarkup: buttons);
+                _ = await Bot.SendTextMessageAsync(e.Message.Chat.Id, "Done!");
+            }
+        }
 
         [Obsolete]
         private async void Bot_OnMessage(object sender, MessageEventArgs e)
@@ -64,12 +85,12 @@ namespace TelegramBot
                             _ = await Bot.SendTextMessageAsync(e.Message.Chat.Id, result);
                             break;
                         case "/location":
-                            KeyboardButton request = new("Send Location") { RequestLocation = true };
+                            KeyboardButton request = new("Փոխանցել") { RequestLocation = true };
                             ReplyKeyboardMarkup replyMarkup = new(new[] { new[] { request } });
 
                             _ = await ((TelegramBotClient)sender).SendTextMessageAsync(
                                 chatId: e.Message.Chat,
-                                text: "Share your location by clicking the button below:",
+                                text: "Փոխանցեք ձեր գտնվելու վայրը սեղմելով ներքևում գտնվող կոճակին:",
                                 replyMarkup: replyMarkup);
                             break;
                         default:
@@ -92,26 +113,7 @@ namespace TelegramBot
         {
             Bot.OnMessage += Bot_OnMessage;
             Bot.StartReceiving();
-            Bot.OnMessage += async (s, e) =>
-            {
-                if (e.Message.Type == MessageType.Location)
-                {
-                    Telegram.Bot.Types.Location userLocation = e.Message.Location;
-                    double latitude = userLocation.Latitude;
-                    double longitude = userLocation.Longitude;
-
-                    _ = await Bot.SendTextMessageAsync(
-                        chatId: e.Message.Chat,
-                        text: $"Your location: Latitude: {latitude}, Longitude: {longitude}"
-                    );
-                    ReplyKeyboardMarkup buttons = ButtonSettings.ShowButtons(e.Message.Chat.Id, Bot);
-                    _ = await Bot.SendTextMessageAsync(
-                    e.Message.Chat.Id,
-                    "Processing...",
-                    replyMarkup: buttons);
-                    _ = await Bot.SendTextMessageAsync(e.Message.Chat.Id, "Done!");
-                }
-            };
+            Bot.OnMessage += Bot_OnLocation;
             _ = Console.ReadLine();
             Bot.StopReceiving();
         }

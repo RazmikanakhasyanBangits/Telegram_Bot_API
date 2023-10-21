@@ -44,14 +44,13 @@ namespace DataScrapper.Impl
             foreach (BankLocationResponseModel item in locations)
             {
                 _ = builder.AppendLine($"{item.LocationName}");
-
-
-
                 _ = builder.AppendLine($"Թարմացվել է` {item.LastUpdatedDate:G}");
                 _ = builder.AppendLine("--------------------------------------------");
             }
             return builder.ToString();
         }
+
+
 
 
     }

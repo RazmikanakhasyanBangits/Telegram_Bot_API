@@ -1,6 +1,8 @@
-﻿using Core.Services.Interfaces;
+﻿using Core.Helper;
+using Core.Services.Interfaces;
 using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.Model;
 using Shared.Models;
@@ -54,9 +56,65 @@ namespace Core.Services.Implementations
                 _ = messageBuilder.AppendLine($"ՎԱՃԱՌՔ: {item.SellValue:#.##} ({item.BestBankForSelling})");
                 _ = messageBuilder.AppendLine($"Թարմացվել է` {item.LastUpdated:G}");
             }
+            _ = messageBuilder.AppendLine("\n");
+            _ = messageBuilder.AppendLine($"Մոտակա բանկերի տեղը իմանալու համար՝ /location");
 
 
             return messageBuilder.ToString();
+        }
+        public async Task<string> GetAllBestDistances(double latitude, double longitude)
+        {
+            IEnumerable<BestRateModel> data = await bestRateService.GetBestRatesAsync();
+
+            StringBuilder builder = new();
+            IEnumerable<BestRateModel> forBuyingBest = data.DistinctBy(x => x.BestBankForBuying);
+            IEnumerable<BestRateModel> forSellingBest = data.DistinctBy(x => x.BestBankForSelling);
+            _ = builder.Append("Լավագույնը Գնման Համար:\n");
+            foreach (BestRateModel item in forBuyingBest)
+            {
+                Bank bank = await _bankRepository.GetAsync(x => x.BankName == item.BestBankForBuying, includes:
+                    z => z.Include(x => x.Locations));
+                double max = 0;
+                string address = string.Empty;
+                if (bank != null)
+                {
+                    foreach (BankLocation location in bank.Locations)
+                    {
+                        double distance = DistanceHelper.CalculateDistance(latitude, longitude, location.Latitude, location.Longitude);
+                        if (distance > max)
+                        {
+                            max = distance;
+                            address = location.LocationName;
+                        }
+                    }
+                    _ = builder.AppendLine($"Բանկը: {bank.BankName}\nԱրժույթը: {item.FromCurrency + item.FromCurrency.ToFlag()} \nՀասցեն: {address}\nՏարածությունը: {Math.Round(max, 2)}կմ.");
+                    _ = builder.AppendLine("\n");
+                }
+            }
+            _ = builder.AppendLine("----------------------------------------------");
+            _ = builder.Append("Լավագույնը Վաճառքի համար:\n");
+            foreach (BestRateModel item in forSellingBest)
+            {
+                Bank bank = await _bankRepository.GetAsync(x => x.BankName == item.BestBankForSelling, includes:
+                    z => z.Include(x => x.Locations));
+                double max = 0;
+                string address = string.Empty;
+                if (bank != null)
+                {
+                    foreach (BankLocation location in bank.Locations)
+                    {
+                        double distance = DistanceHelper.CalculateDistance(latitude, longitude, location.Latitude, location.Longitude);
+                        if (distance > max)
+                        {
+                            max = distance;
+                            address = location.LocationName;
+                        }
+                    }
+                    _ = builder.AppendLine($"Բանկը: {bank.BankName} \nԱրժույթը: {item.FromCurrency + item.FromCurrency.ToFlag()} \nՀասցեն: {address}\nՏարածությունը:{Math.Round(max, 2)}կմ.");
+                    _ = builder.AppendLine("\n");
+                }
+            }
+            return builder.ToString();
         }
         public string GetAll()
         {

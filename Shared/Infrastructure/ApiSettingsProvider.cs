@@ -1,4 +1,6 @@
-﻿namespace Shared.Infrastructure
+﻿// Ignore Spelling: Api
+
+namespace Shared.Infrastructure
 {
     public class ApiSettingsProvider : ISettingsProvider
     {
