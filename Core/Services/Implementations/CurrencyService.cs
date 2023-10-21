@@ -1,10 +1,11 @@
-﻿using DataAccess.Models;
-using DataAccess.Repository;
+﻿using Core.Services.Interfaces;
+using DataAccess.Models;
+using DataAccess.Repositories.Interfaces;
 using Shared.Models.Currency;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Core.Services
+namespace Core.Services.Implementations
 {
     public class CurrencyService : ICurrencyService
     {

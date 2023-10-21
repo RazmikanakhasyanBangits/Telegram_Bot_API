@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-#nullable disable
 
 namespace DataAccess.Models
 {
@@ -16,6 +14,7 @@ namespace DataAccess.Models
         public string BankName { get; set; }
         public string BankUrl { get; set; }
 
+        public ICollection<BankLocation> Locations { get; set; }
         public virtual ICollection<RateModel> Rates { get; set; }
     }
 }

@@ -1,9 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿namespace TelegramBot.Abstraction;
 
-namespace TelegramBot.Abstraction
+public interface ICommandHendler
 {
-    internal interface ICommandHendler
-    {
-        Task HandleAsync(string command);
-    }
+    void Get();
 }

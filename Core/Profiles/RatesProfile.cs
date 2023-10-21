@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using Core.Models;
 using DataAccess.Models;
+using Shared.Models.Location;
+using Shared.Models.Rates;
 
 namespace Core.Profiles
 {
@@ -12,6 +13,8 @@ namespace Core.Profiles
                 .ForPath(destination => destination.Rates.Buy, source => source.MapFrom(_ => _.BuyValue))
                 .ForPath(destination => destination.Rates.Sell, source => source.MapFrom(_ => _.SellValue))
                 .ForPath(destination => destination.BaseCurrency, source => source.MapFrom(_ => _.ToCurrency));
+
+            _ = CreateMap<BankLocationResponseModel, BankLocation>().ReverseMap();
         }
     }
 }

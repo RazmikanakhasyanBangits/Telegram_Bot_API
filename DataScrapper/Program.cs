@@ -1,6 +1,9 @@
-﻿using Core;
+﻿using Core.Services.Implementations;
+using DataAccess;
 using DataAccess.Models;
 using DataAccess.Repositories.Implementation;
+using DataScrapper.Abstraction;
+using DataScrapper.Impl;
 using htmlWrapDemo;
 using Newtonsoft.Json.Linq;
 using System;

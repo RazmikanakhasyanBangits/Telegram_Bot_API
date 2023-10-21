@@ -1,5 +1,4 @@
-﻿using DataAccess.Models;
-using DataAccess.Repositories.Interfaces;
+﻿using DataAccess.Repositories.Interfaces;
 using Shared.Infrastructure;
 using Shared.Model;
 using Shared.Models;

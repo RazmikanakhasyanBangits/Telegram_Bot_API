@@ -1,7 +1,7 @@
 ﻿using htmlWrapDemo;
 using System.Collections.Generic;
 
-namespace DataScrapper
+namespace DataScrapper.Abstraction
 {
     public interface IDataScrapper
     {

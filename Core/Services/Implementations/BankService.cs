@@ -1,6 +1,6 @@
 ﻿using Core.Services.Interfaces;
 using DataAccess.Models;
-using DataAccess.Repository;
+using DataAccess.Repositories.Interfaces;
 using Shared;
 using Shared.Model;
 using Shared.Models;

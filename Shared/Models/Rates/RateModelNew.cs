@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Models
+namespace Shared.Models.Rates
 {
     public class RateModelNew
     {

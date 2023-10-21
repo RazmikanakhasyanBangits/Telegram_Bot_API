@@ -1,5 +1,4 @@
-﻿using Core.Services;
-using Core.Services.Interfaces;
+﻿using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Shared.Models.Currency;

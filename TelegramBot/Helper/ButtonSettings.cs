@@ -8,15 +8,13 @@ namespace TelegramBot.Helper
         public static ReplyKeyboardMarkup ShowButtons(long chatId, TelegramBotClient sender)
         {
             return new(new[]
-                       {
-                            new KeyboardButton("/all"),
-                            new KeyboardButton("/allBest"),
-                            new KeyboardButton("/available"),
-                            new KeyboardButton("/location")
-                         })
-            {
-                ResizeKeyboard = true
-            };
+                   {
+                     new KeyboardButton("/all"),
+                     new KeyboardButton("/allBest"),
+                     new KeyboardButton("/available"),
+                     new KeyboardButton("/location")
+                   })
+            { ResizeKeyboard = true };
 
 
         }

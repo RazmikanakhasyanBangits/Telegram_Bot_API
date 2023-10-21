@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Shared.Models.Banks;
 namespace Shared.Models.Rates
 {
     public class RatesInfoModel
@@ -17,5 +12,5 @@ namespace Shared.Models.Rates
         public DateTime LastUpdated { get; set; }
 
         public string BankName { get; set; }
-    } 
+    }
 }

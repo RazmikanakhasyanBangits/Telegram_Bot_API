@@ -1,26 +1,22 @@
 ﻿using DataAccess.Models;
+using DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Shared.Models.Banks;
-using Shared.Models.Rates;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DataAccess.Repository
+namespace DataAccess.Repositories.Implementation
 {
-    public class BankRepository : IBankRepository
+    public class BankRepository : GenericRepository<Bank>, IBankRepository
     {
         private readonly TelegramBotDbContext _context;
-        public BankRepository(TelegramBotDbContext context)
+        public BankRepository(TelegramBotDbContext context) : base(context)
         {
             _context = context;
         }
 
         public IEnumerable<RateModel> All()
         {
-            var maxIteration = _context.Rates.Max(_ => _.Iteration);
+            int maxIteration = _context.Rates.Max(_ => _.Iteration);
             return _context.Rates.Include(_ => _.Bank).Where(_ => _.Iteration == maxIteration);
         }
     }

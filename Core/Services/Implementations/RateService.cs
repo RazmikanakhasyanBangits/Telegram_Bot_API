@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.Services.Interfaces;
+﻿using Core.Services.Interfaces;
 using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
-using Shared.Models;
+using System.Collections.Generic;
 
-namespace Core
+namespace Core.Services.Implementations
 {
-   public class RateService : IRateService
+    public class RateService : IRateService
     {
         private readonly IRatesRepository _dataScrapper;
         public RateService(IRatesRepository dataScrapper)
@@ -18,11 +13,11 @@ namespace Core
             _dataScrapper = dataScrapper;
         }
 
-        public void BulknInsert(IEnumerable<DataAccess.Models.RateModel> rate)
+        public void BulknInsert(IEnumerable<RateModel> rate)
         {
             _dataScrapper.BulkInsert(rate);
         }
 
-       
+
     }
 }

@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
-
-namespace DataAccess.Models
+namespace DataAccess
 {
     public partial class TelegramBotDbContext : DbContext
     {
@@ -32,10 +32,19 @@ namespace DataAccess.Models
         public virtual DbSet<BotHistory> BotHistories { get; set; }
         public virtual DbSet<Currency> Currencies { get; set; }
         public virtual DbSet<RateModel> Rates { get; set; }
+        public DbSet<BankLocation> Locations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             _ = modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+            _ = modelBuilder.Entity<BankLocation>(entity =>
+            {
+                _ = entity.HasIndex(x => x.Id);
+                _ = entity.HasOne(x => x.Bank)
+                .WithMany(x => x.Locations)
+                .HasForeignKey(x => x.BankId);
+            });
 
             _ = modelBuilder.Entity<Bank>(entity =>
             {

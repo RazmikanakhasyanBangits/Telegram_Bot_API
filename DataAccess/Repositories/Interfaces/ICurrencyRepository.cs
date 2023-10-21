@@ -1,9 +1,7 @@
-﻿
-
-using DataAccess.Models;
+﻿using DataAccess.Models;
 using System.Collections.Generic;
 
-namespace DataAccess.Repository
+namespace DataAccess.Repositories.Interfaces
 {
     public interface ICurrencyRepository
     {

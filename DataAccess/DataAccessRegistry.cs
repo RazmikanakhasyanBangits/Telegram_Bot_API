@@ -1,5 +1,4 @@
-﻿using DataAccess.Models;
-using DataAccess.Repositories.Implementation;
+﻿using DataAccess.Repositories.Implementation;
 using DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

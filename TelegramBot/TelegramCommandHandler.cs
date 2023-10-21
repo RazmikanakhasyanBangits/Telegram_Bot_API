@@ -1,4 +1,6 @@
-﻿using Core.Services.Interfaces;
+﻿using Core.Services.Implementations;
+using Core.Services.Interfaces;
+using DataScrapper.Impl;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Text.RegularExpressions;
@@ -6,32 +8,35 @@ using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
+using TelegramBot.Abstraction;
 using TelegramBot.Helper;
 
 namespace TelegramBot
 {
-    public class TelegramCommandHandler
+    public class TelegramCommandHandler : ICommandHendler
     {
         private readonly string _token;
         private readonly TelegramBotClient Bot;
         private readonly IBankService bankService;
+        private readonly ILocation location;
 
-        public TelegramCommandHandler(IBankService bankService, IConfiguration configuration)
+        public TelegramCommandHandler(IBankService bankService, IConfiguration configuration, ILocation location)
         {
             _token = configuration["token"];
             Bot = new TelegramBotClient(_token);
             this.bankService = bankService;
+            this.location = location;
         }
 
 
         [Obsolete]
         private async void Bot_OnMessage(object sender, MessageEventArgs e)
         {
-
             if (e.Message.Type == MessageType.Text)
             {
                 try
                 {
+                    string result = string.Empty;
                     string pattern = @"(\d+)([A-Z]{3})([:]([A-Z]{3})){0,1}";
                     Regex regex = new(pattern);
                     if (regex.IsMatch(e.Message.Text))
@@ -54,6 +59,10 @@ namespace TelegramBot
                             replyMarkup: buttons);
                             _ = await Bot.SendTextMessageAsync(e.Message.Chat.Id, "Done!");
                             break;
+                        case "/getLocation":
+                            result = await location.GetLocationsAsync(nameof(EvocaBankDataScrapper));
+                            _ = await Bot.SendTextMessageAsync(e.Message.Chat.Id, result);
+                            break;
                         case "/location":
                             KeyboardButton request = new("Send Location") { RequestLocation = true };
                             ReplyKeyboardMarkup replyMarkup = new(new[] { new[] { request } });
@@ -64,7 +73,7 @@ namespace TelegramBot
                                 replyMarkup: replyMarkup);
                             break;
                         default:
-                            string result = CommandSwitcher.CommandDictionary[e.Message.Text].Invoke(e.Message.Chat.Id);
+                            result = CommandSwitcher.CommandDictionary[e.Message.Text].Invoke(e.Message.Chat.Id);
                             _ = await Bot.SendTextMessageAsync(e.Message.Chat.Id, result);
                             break;
                     }
@@ -106,5 +115,6 @@ namespace TelegramBot
             _ = Console.ReadLine();
             Bot.StopReceiving();
         }
+
     }
 }

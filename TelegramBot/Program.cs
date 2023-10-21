@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using TelegramBot.Abstraction;
 using TelegramBot.Helper;
 
 namespace TelegramBot
@@ -30,7 +31,10 @@ namespace TelegramBot
 
             IBankService bankService = scope.ServiceProvider.GetRequiredService<IBankService>();
             CommandSwitcher switcher = scope.ServiceProvider.GetRequiredService<CommandSwitcher>();
-            TelegramCommandHandler telegram = new(bankService, configuration);
+            //ILocation location = scope.ServiceProvider.GetRequiredService<ILocation>();
+            ICommandHendler telegram = scope.ServiceProvider.GetRequiredService<ICommandHendler>();
+
+            // GetLocationResponseModel result = await location.GetLocationsAsync(nameof(AmeriaBankDataScrapper));
             telegram.Get();
         }
         private static ServiceCollection Load(IConfiguration configuration)
