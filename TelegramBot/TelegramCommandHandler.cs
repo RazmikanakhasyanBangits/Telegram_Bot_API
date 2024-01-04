@@ -19,13 +19,16 @@ namespace TelegramBot
         private readonly TelegramBotClient Bot;
         private readonly IBankService bankService;
         private readonly ILocation location;
+        private readonly IUserActivityHistoryService userActivityHistory;
 
-        public TelegramCommandHandler(IBankService bankService, IConfiguration configuration, ILocation location)
+        public TelegramCommandHandler(IBankService bankService, IConfiguration configuration, ILocation location,
+            IUserActivityHistoryService userActivityHistory)
         {
             _token = configuration["token"];
             Bot = new TelegramBotClient(_token);
             this.bankService = bankService;
             this.location = location;
+            this.userActivityHistory = userActivityHistory;
         }
 
         [Obsolete]
@@ -47,6 +50,8 @@ namespace TelegramBot
                 "Processing...",
                 replyMarkup: buttons);
                 _ = await Bot.SendTextMessageAsync(e.Message.Chat.Id, "Done!");
+                e.Message.Text = "/locationResponse";
+                await userActivityHistory.AddChatHistory(e, result);
             }
         }
 
@@ -79,10 +84,13 @@ namespace TelegramBot
                             "Processing...",
                             replyMarkup: buttons);
                             _ = await Bot.SendTextMessageAsync(e.Message.Chat.Id, "Done!");
+                            await userActivityHistory.AddChatHistory(e, result);
                             break;
                         case "/getLocation":
                             result = await location.GetLocationsAsync(nameof(EvocaBankDataScrapper));
                             _ = await Bot.SendTextMessageAsync(e.Message.Chat.Id, result);
+                            await userActivityHistory.AddChatHistory(e, result);
+
                             break;
                         case "/location":
                             KeyboardButton request = new("Փոխանցել") { RequestLocation = true };
@@ -92,10 +100,14 @@ namespace TelegramBot
                                 chatId: e.Message.Chat,
                                 text: "Փոխանցեք ձեր գտնվելու վայրը սեղմելով ներքևում գտնվող կոճակին:",
                                 replyMarkup: replyMarkup);
+                            await userActivityHistory.AddChatHistory(e, result);
+
                             break;
                         default:
                             result = CommandSwitcher.CommandDictionary[e.Message.Text].Invoke(e.Message.Chat.Id);
                             _ = await Bot.SendTextMessageAsync(e.Message.Chat.Id, result);
+                            await userActivityHistory.AddChatHistory(e, result);
+
                             break;
                     }
 

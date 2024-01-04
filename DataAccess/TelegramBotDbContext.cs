@@ -33,6 +33,8 @@ namespace DataAccess
         public virtual DbSet<Currency> Currencies { get; set; }
         public virtual DbSet<RateModel> Rates { get; set; }
         public DbSet<BankLocation> Locations { get; set; }
+        public DbSet<UserActivityHistory> UsersActivityHistories { get; set; }
+        public DbSet<ChatDetail> ChatDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -114,6 +116,8 @@ namespace DataAccess
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Rates_Currencies1");
             });
+
+            modelBuilder.ConfigChatDetails();
 
             OnModelCreatingPartial(modelBuilder);
         }

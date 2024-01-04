@@ -1,20 +1,18 @@
 ﻿using System.Collections.Generic;
 
+namespace DataAccess.Models;
 
-namespace DataAccess.Models
+public partial class Bank
 {
-    public partial class Bank
+    public Bank()
     {
-        public Bank()
-        {
-            Rates = new HashSet<RateModel>();
-        }
-
-        public int Id { get; set; }
-        public string BankName { get; set; }
-        public string BankUrl { get; set; }
-
-        public ICollection<BankLocation> Locations { get; set; }
-        public virtual ICollection<RateModel> Rates { get; set; }
+        Rates = new HashSet<RateModel>();
     }
+
+    public int Id { get; set; }
+    public string BankName { get; set; }
+    public string BankUrl { get; set; }
+
+    public ICollection<BankLocation> Locations { get; set; }
+    public virtual ICollection<RateModel> Rates { get; set; }
 }

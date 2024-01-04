@@ -1,4 +1,6 @@
-﻿using Core.Services.Implementations;
+﻿// Ignore Spelling: Impl
+
+using Core.Services.Implementations;
 using Core.Services.Interfaces;
 using Shared.Models.Location;
 using Shared.Models.Static;

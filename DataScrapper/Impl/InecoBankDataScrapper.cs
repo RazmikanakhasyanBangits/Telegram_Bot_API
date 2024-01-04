@@ -1,4 +1,4 @@
-﻿// Ignore Spelling: Ineco
+﻿// Ignore Spelling: Ineco Online
 
 using Core.Helper;
 using Core.Services.Implementations;

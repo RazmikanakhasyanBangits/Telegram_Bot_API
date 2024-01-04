@@ -74,20 +74,20 @@ namespace Core.Services.Implementations
             {
                 Bank bank = await _bankRepository.GetAsync(x => x.BankName == item.BestBankForBuying, includes:
                     z => z.Include(x => x.Locations));
-                double max = 0;
+                double min = 20000;
                 string address = string.Empty;
                 if (bank != null)
                 {
                     foreach (BankLocation location in bank.Locations)
                     {
                         double distance = DistanceHelper.CalculateDistance(latitude, longitude, location.Latitude, location.Longitude);
-                        if (distance > max)
+                        if (distance < min)
                         {
-                            max = distance;
+                            min = distance;
                             address = location.LocationName;
                         }
                     }
-                    _ = builder.AppendLine($"Բանկը: {bank.BankName}\nԱրժույթը: {item.FromCurrency + item.FromCurrency.ToFlag()} \nՀասցեն: {address}\nՏարածությունը: {Math.Round(max, 2)}կմ.");
+                    _ = builder.AppendLine($"Բանկը: {bank.BankName}\nԱրժույթը: {item.FromCurrency + item.FromCurrency.ToFlag()} \nՀասցեն: {address}\nՏարածությունը: {Math.Round(min, 2)}կմ.");
                     _ = builder.AppendLine("\n");
                 }
             }
@@ -97,20 +97,20 @@ namespace Core.Services.Implementations
             {
                 Bank bank = await _bankRepository.GetAsync(x => x.BankName == item.BestBankForSelling, includes:
                     z => z.Include(x => x.Locations));
-                double max = 0;
+                double min = 20000;
                 string address = string.Empty;
                 if (bank != null)
                 {
                     foreach (BankLocation location in bank.Locations)
                     {
                         double distance = DistanceHelper.CalculateDistance(latitude, longitude, location.Latitude, location.Longitude);
-                        if (distance > max)
+                        if (distance < min)
                         {
-                            max = distance;
+                            min = distance;
                             address = location.LocationName;
                         }
                     }
-                    _ = builder.AppendLine($"Բանկը: {bank.BankName} \nԱրժույթը: {item.FromCurrency + item.FromCurrency.ToFlag()} \nՀասցեն: {address}\nՏարածությունը:{Math.Round(max, 2)}կմ.");
+                    _ = builder.AppendLine($"Բանկը: {bank.BankName} \nԱրժույթը: {item.FromCurrency + item.FromCurrency.ToFlag()} \nՀասցեն: {address}\nՏարածությունը:{Math.Round(min, 2)}կմ.");
                     _ = builder.AppendLine("\n");
                 }
             }
@@ -156,7 +156,5 @@ namespace Core.Services.Implementations
                 BankName = _rates.Bank.BankName
             };
         }
-
-
     }
 }

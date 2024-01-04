@@ -21,6 +21,7 @@ namespace TelegramBot.Helper
             _ = services.AddScoped<IBankService, BankService>();
             _ = services.AddScoped<IBankRepository, BankRepository>();
             _ = services.AddScoped<IBestRateService, BestRateService>();
+            _ = services.AddScoped<IUserActivityHistoryService, UserActivityHistoryService>();
             _ = services.AddScoped<ISettingsProvider, ApiSettingsProvider>();
             _ = services.AddScoped<ICurrencyService, CurrencyService>();
             _ = services.AddScoped<ICurrencies, Currencies>();
@@ -44,6 +45,8 @@ namespace TelegramBot.Helper
             _ = services.AddScoped<IBestRatesRepository, BestRatesRepository>();
             _ = services.AddScoped<ICurrencyRepository, CurrencyRepository>();
             _ = services.AddScoped<IConvertRepository, ConvertRepository>();
+            _ = services.AddScoped<IChatDetailRepository, ChatDetailRepository>();
+            _ = services.AddScoped<IUserActivityHistoryRepository, UserActivityHistoryRepository>();
             //_ = services.AddScoped<IGenericRepository, GenericRepository>();
             return services;
         }

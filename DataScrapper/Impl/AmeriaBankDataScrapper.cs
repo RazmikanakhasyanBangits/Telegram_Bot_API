@@ -1,4 +1,4 @@
-﻿// Ignore Spelling: Ameria
+﻿// Ignore Spelling: Ameria Impl
 
 using Core.Helper;
 using Core.Services.Implementations;

@@ -1,5 +1,6 @@
 ﻿using DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
@@ -50,6 +51,15 @@ namespace DataAccess.Repositories.Implementation
         {
             return await dbContext.Set<T>().FirstOrDefaultAsync(predicate);
         }
+        public virtual async Task<T> GetDetailsAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> includes = null)
+        {
+            IQueryable<T> query = dbContext.Set<T>().AsQueryable();
+            if (includes != null)
+            {
+                query = includes(query).IgnoreAutoIncludes();
+            }
+            return await query.Where(predicate).FirstOrDefaultAsync();
+        }
         public virtual async Task<T> GetAsync(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IIncludableQueryable<T, object>> includes = null, bool? disableTracking = null)
         {
             IQueryable<T> query = dbContext.Set<T>().AsQueryable();
@@ -67,10 +77,11 @@ namespace DataAccess.Repositories.Implementation
             T result = await query.Where(filter).FirstOrDefaultAsync();
             return result;
         }
-        public virtual async Task AddAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity)
         {
-            _ = await dbContext.Set<T>().AddAsync(entity);
+            EntityEntry<T> addedEntity = await dbContext.Set<T>().AddAsync(entity);
             _ = await dbContext.SaveChangesAsync();
+            return addedEntity.Entity;
         }
         public virtual async Task UpdateAsync(T entity)
         {

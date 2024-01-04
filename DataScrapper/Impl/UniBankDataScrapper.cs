@@ -1,4 +1,4 @@
-﻿// Ignore Spelling: Uni
+﻿// Ignore Spelling: Uni Impl
 
 using Core.Helper;
 using Core.Services.Implementations;

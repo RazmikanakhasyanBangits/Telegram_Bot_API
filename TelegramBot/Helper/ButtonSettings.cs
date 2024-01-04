@@ -15,8 +15,6 @@ namespace TelegramBot.Helper
                      new KeyboardButton("/location")
                    })
             { ResizeKeyboard = true };
-
-
         }
     }
 }
