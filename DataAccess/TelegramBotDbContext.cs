@@ -117,6 +117,11 @@ namespace DataAccess
                     .HasConstraintName("FK_Rates_Currencies1");
             });
 
+            modelBuilder.Seed();
+
+            modelBuilder.AddUserActivity();
+            modelBuilder.AddUserRole();
+            modelBuilder.AddUserStatus();
             modelBuilder.ConfigChatDetails();
 
             OnModelCreatingPartial(modelBuilder);

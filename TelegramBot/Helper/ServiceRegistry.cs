@@ -5,14 +5,15 @@ using DataAccess;
 using DataAccess.Repositories.Implementation;
 using DataAccess.Repositories.Interfaces;
 using DataScrapper.Impl;
+using ExchangeBot.Abstraction;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Infrastructure;
 using System.IO;
-using TelegramBot.Abstraction;
+using TelegramBot.Helper;
 
-namespace TelegramBot.Helper
+namespace ExchangeBot.Helper
 {
     public static class ServiceRegistry
     {
@@ -47,7 +48,6 @@ namespace TelegramBot.Helper
             _ = services.AddScoped<IConvertRepository, ConvertRepository>();
             _ = services.AddScoped<IChatDetailRepository, ChatDetailRepository>();
             _ = services.AddScoped<IUserActivityHistoryRepository, UserActivityHistoryRepository>();
-            //_ = services.AddScoped<IGenericRepository, GenericRepository>();
             return services;
         }
         public static ServiceCollection RegisterDbContext(this ServiceCollection services, string connectionString)
@@ -55,7 +55,6 @@ namespace TelegramBot.Helper
             _ = services.AddDbContext<TelegramBotDbContext>(_ => _.UseSqlServer(connectionString));
             return services;
         }
-
         private static IConfiguration LoadConfiguration()
         {
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
@@ -64,5 +63,6 @@ namespace TelegramBot.Helper
 
             return configurationBuilder.Build();
         }
+
     }
 }

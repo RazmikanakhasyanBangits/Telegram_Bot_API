@@ -20,7 +20,7 @@ public class UserActivityHistoryService : IUserActivityHistoryService
         _chatDetailRepository = chatDetailRepository;
     }
 
-    [System.Obsolete]
+    [Obsolete]
     public async Task AddChatHistory(MessageEventArgs request, string response)
     {
         UserActivityHistory history = await _historyRepository.GetDetailsAsync(x => x.UserExternalId == request.Message.From.Id,

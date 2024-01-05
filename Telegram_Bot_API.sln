@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{E303C98A-DDF7-4F7F-A9FD-BFA0D3CC42A6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramBot", "TelegramBot\TelegramBot.csproj", "{2FA8E1C7-2A10-4F63-B57D-C9496A493B28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExchangeBot", "TelegramBot\ExchangeBot.csproj", "{2FA8E1C7-2A10-4F63-B57D-C9496A493B28}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataScrapper", "DataScrapper\DataScrapper.csproj", "{9A06D656-1D0E-450E-8B18-FEF4C2E462EE}"
 EndProject

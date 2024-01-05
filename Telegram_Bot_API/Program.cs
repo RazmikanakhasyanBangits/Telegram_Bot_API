@@ -1,26 +1,25 @@
 using API.Extensions;
+using API.GrpcServer;
 using Core;
 using DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using Serilog;
 using Shared.Infrastructure;
+using Shared.Models.Static;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapperConfigurations();
 builder.Services.AddControllers();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
-});
+
 
 builder.Services.AddSingleton<ISettingsProvider, ApiSettingsProvider>();
 ServiceRegistry.RegisterServices(builder.Services);
+builder.Services.AddSwagger(SettingsConstants.SwaggerTitle);
 DataAccessRegistry.RegisterServices(builder.Services);
 DataAccessRegistry.RegisterDBContext(builder.Services, builder.Configuration["ConnectionStrings:Default"]);
-
+builder.Services.AddGrpc();
 RepositoryRegistry.RegisterRepositories(builder.Services);
 
 Log.Logger = new LoggerConfiguration()
@@ -30,17 +29,14 @@ Log.Logger = new LoggerConfiguration()
 WebApplication app = builder.Build();
 if (builder.Environment.IsDevelopment())
 {
-    _ = app.UseDeveloperExceptionPage();
-    _ = app.UseSwagger();
-    _ = app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
+    _ = app.UseCustomSwagger(SettingsConstants.SwaggerPrefixPath, SettingsConstants.ApiPath,
+        builder.Environment.IsDevelopment(), enableDark: true);
 }
 
-_ = app.UseHttpsRedirection();
-
-_ = app.UseRouting();
-
-_ = app.UseAuthorization();
-
+app.UseHttpsRedirection();
+app.UseRouting();
+app.UseAuthorization();
+app.MapGrpcService<UserActionsServer>();
 _ = app.UseEndpoints(endpoints =>
 {
     _ = endpoints.MapControllers();

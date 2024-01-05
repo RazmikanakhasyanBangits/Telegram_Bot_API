@@ -1,12 +1,10 @@
-﻿using Core.Services.Interfaces;
-using ExchangeBot.Abstraction;
-using ExchangeBot.Helper;
+﻿using ExchangeBot.Abstraction;
+using ExchangeBotAdmin.Helper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using TelegramBot.Helper;
 
-namespace ExchangeBot
+namespace ExchangeBotAdmin
 {
     public class Program
     {
@@ -30,22 +28,15 @@ namespace ExchangeBot
 
             using IServiceScope scope = serviceProvider.CreateScope();
 
-            IBankService bankService = scope.ServiceProvider.GetRequiredService<IBankService>();
-            CommandSwitcher switcher = scope.ServiceProvider.GetRequiredService<CommandSwitcher>();
-            //ILocation location = scope.ServiceProvider.GetRequiredService<ILocation>();
             ICommandHandler telegram = scope.ServiceProvider.GetRequiredService<ICommandHandler>();
 
-            // GetLocationResponseModel result = await location.GetLocationsAsync(nameof(AmeriaBankDataScrapper));
             telegram.Get();
         }
         private static ServiceCollection Load(IConfiguration configuration)
         {
             ServiceCollection serviceCollection = new();
 
-
-            _ = serviceCollection.RegisterDbContext(configuration["ConnectionString"]);
-            _ = serviceCollection.RegisterRepositories();
-            _ = serviceCollection.RegisterServices();
+            _ = ServiceRegistry.RegisterServices(serviceCollection);
             return serviceCollection;
         }
         #endregion

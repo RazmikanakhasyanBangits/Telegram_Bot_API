@@ -1,6 +1,7 @@
 ﻿using Core.Services.Implementations;
 using Core.Services.Interfaces;
 using DataScrapper.Impl;
+using ExchangeBot.Abstraction;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Text.RegularExpressions;
@@ -8,10 +9,9 @@ using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
-using TelegramBot.Abstraction;
 using TelegramBot.Helper;
 
-namespace TelegramBot
+namespace ExchangeBot
 {
     public class TelegramCommandHandler : ICommandHandler
     {
@@ -110,7 +110,6 @@ namespace TelegramBot
 
                             break;
                     }
-
                 }
                 catch (Exception)
                 {
