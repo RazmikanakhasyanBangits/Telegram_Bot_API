@@ -1,5 +1,6 @@
 ﻿using Core.Services.Implementations;
 using Core.Services.Interfaces;
+using DataAccess.Repositories.Implementation;
 using DataScrapper.Impl;
 using ExchangeBot.Abstraction;
 using Microsoft.Extensions.Configuration;
@@ -40,7 +41,7 @@ namespace ExchangeBot
         {
             if (e.Message.Type == MessageType.Location)
             {
-                if (await userActivityHistory.IsUserBlockedAsync(e.Message.Chat.Username))
+                if (await userActivityHistory.IsUserBlockedAsync(e.Message.Chat.Id))
                 {
                     await Bot.SendTextMessageAsync(chatId: e.Message.Chat.Id, text: "🚫You Are Currently Blocked🚫");
                     return;
@@ -70,7 +71,7 @@ namespace ExchangeBot
 
             if (e.Message.Type == MessageType.Text)
             {
-                if (await userActivityHistory.IsUserBlockedAsync(e.Message.Chat.Username))
+                if (await userActivityHistory.IsUserBlockedAsync(e.Message.Chat.Id))
                 {
                     await Bot.SendTextMessageAsync(chatId: e.Message.Chat.Id, text: "🚫You Are Currently Blocked🚫");
                     return;

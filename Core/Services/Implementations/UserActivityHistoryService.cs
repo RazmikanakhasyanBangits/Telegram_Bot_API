@@ -82,7 +82,7 @@ public class UserActivityHistoryService : IUserActivityHistoryService
     {
         try
         {
-            var user = await _historyRepository.GetDetailsAsync(x => x.UserName==userName);
+            var user = await _historyRepository.GetDetailsAsync(x => x.UserExternalId.ToString()==userName);
             user.StatusId=(short)UserStatusEnum.Blocked;
             user.LastUpdateDate=DateTime.UtcNow;
 
@@ -99,7 +99,7 @@ public class UserActivityHistoryService : IUserActivityHistoryService
     {
         try
         {
-            var user = await _historyRepository.GetDetailsAsync(x => x.UserName==userName);
+            var user = await _historyRepository.GetDetailsAsync(x => x.UserExternalId.ToString()==userName);
             user.StatusId=(short)UserStatusEnum.Active;
             user.LastUpdateDate=DateTime.UtcNow;
             await _historyRepository.UpdateAsync(user);
@@ -112,14 +112,14 @@ public class UserActivityHistoryService : IUserActivityHistoryService
 
     }
 
-    public async Task<bool> IsUserBlockedAsync(string userName)
+    public async Task<bool> IsUserBlockedAsync(long userId)
     {
         using (var scope = _scopeFactory.CreateScope())
         {
             var scopedServices = scope.ServiceProvider;
             var historyRepository = scopedServices.GetRequiredService<IUserActivityHistoryRepository>();
-            var user = await historyRepository.GetDetailsAsync(x => x.UserName==userName);
-
+            var user = await historyRepository.GetDetailsAsync(x => x.UserExternalId==userId);
+            if (user is null) return false;
             return user.StatusId == (short)UserStatusEnum.Blocked;
         }
     }
