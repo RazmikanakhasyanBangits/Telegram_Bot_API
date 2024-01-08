@@ -36,7 +36,7 @@ namespace ExchangeBot
             ICommandHandler telegram = scope.ServiceProvider.GetRequiredService<ICommandHandler>();
 
             // GetLocationResponseModel result = await location.GetLocationsAsync(nameof(AmeriaBankDataScrapper));
-            telegram.Get();
+            telegram.StartBot();
         }
         private static ServiceCollection Load(IConfiguration configuration)
         {

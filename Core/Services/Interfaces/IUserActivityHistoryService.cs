@@ -5,6 +5,8 @@ namespace Core.Services.Interfaces;
 
 public interface IUserActivityHistoryService
 {
-    [System.Obsolete]
     Task AddChatHistory(MessageEventArgs request, string response);
+    Task<bool> BlockUserAsync(string userName);
+    Task<bool> IsUserBlockedAsync(string userName);
+    Task<bool> UnBlockUserAsync(string userName);
 }

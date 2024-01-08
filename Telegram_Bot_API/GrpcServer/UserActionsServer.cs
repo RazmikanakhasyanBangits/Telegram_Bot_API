@@ -1,4 +1,6 @@
-﻿using Grpc.Core;
+﻿using Core.Services.Interfaces;
+using ExchangeBot.Abstraction;
+using Grpc.Core;
 using System.Threading.Tasks;
 using UserActionsProto;
 
@@ -6,14 +8,33 @@ namespace API.GrpcServer
 {
     public class UserActionsServer : UserActions.UserActionsBase
     {
-        public override Task<BlockUserGrpcResponseModel> BlockUser(BlockUserGrpcRequestModel request, ServerCallContext context)
+        private readonly IUserActivityHistoryService userActivityHistoryService;
+        private readonly ICommandHandler commandHandler;
+
+        public UserActionsServer(IUserActivityHistoryService userActivityHistoryService, ICommandHandler commandHandler)
         {
-            return base.BlockUser(request, context);
+            this.userActivityHistoryService=userActivityHistoryService;
+            this.commandHandler=commandHandler;
         }
 
-        public override Task<UnblockUserGrpcResponse> UnblockUser(UnblockUserGrpcRequest request, ServerCallContext context)
+        public override async Task<BlockUserGrpcResponseModel> BlockUser(BlockUserGrpcRequestModel request, ServerCallContext context)
         {
-            return base.UnblockUser(request, context);
+            return new BlockUserGrpcResponseModel { Status = await userActivityHistoryService.BlockUserAsync(request.UserName) };
+        }
+
+        public override async Task<UnblockUserGrpcResponse> UnblockUser(UnblockUserGrpcRequest request, ServerCallContext context)
+        {
+            return new UnblockUserGrpcResponse { Status = await userActivityHistoryService.UnBlockUserAsync(request.UserName) };
+        }
+        public override Task<ReStartBotGrpcResponse> ReStartBot(ReStartBotGrpcRequest request, ServerCallContext context)
+        {
+            commandHandler.ReStartBot();
+            return Task.FromResult(new ReStartBotGrpcResponse());
+        }
+        public override  Task<StopBotGrpcResponse> StopBot(StopBotGrpcRequest request, ServerCallContext context)
+        {
+            commandHandler.StopBot();
+            return Task.FromResult(new StopBotGrpcResponse());
         }
     }
 }

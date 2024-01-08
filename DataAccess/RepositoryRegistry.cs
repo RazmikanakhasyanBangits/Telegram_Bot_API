@@ -12,6 +12,8 @@ namespace DataAccess
             _ = services.AddScoped<ICurrencyRepository, CurrencyRepository>();
             _ = services.AddScoped<IBankRepository, BankRepository>();
             _ = services.AddScoped<IRatesRepository, RatesRepository>();
+            services.AddScoped<IUserActivityHistoryRepository, UserActivityHistoryRepository>();
+            services.AddScoped<IChatDetailRepository, ChatDetailRepository>();
         }
         public static void RegisterDbContext(IServiceCollection services, string connectionString)
         {

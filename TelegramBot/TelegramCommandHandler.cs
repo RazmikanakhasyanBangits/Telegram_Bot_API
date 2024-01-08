@@ -3,20 +3,24 @@ using Core.Services.Interfaces;
 using DataScrapper.Impl;
 using ExchangeBot.Abstraction;
 using Microsoft.Extensions.Configuration;
+using Shared.Models.Location;
 using System;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
+using Telegram.Bots.Requests;
 using TelegramBot.Helper;
 
 namespace ExchangeBot
 {
     public class TelegramCommandHandler : ICommandHandler
     {
-        private readonly string _token;
-        private readonly TelegramBotClient Bot;
+        private static string _token;
+        private static TelegramBotClient Bot;
         private readonly IBankService bankService;
         private readonly ILocation location;
         private readonly IUserActivityHistoryService userActivityHistory;
@@ -24,8 +28,8 @@ namespace ExchangeBot
         public TelegramCommandHandler(IBankService bankService, IConfiguration configuration, ILocation location,
             IUserActivityHistoryService userActivityHistory)
         {
-            _token = configuration["token"];
-            Bot = new TelegramBotClient(_token);
+            _token= configuration["token"];
+            Bot= new TelegramBotClient(_token);
             this.bankService = bankService;
             this.location = location;
             this.userActivityHistory = userActivityHistory;
@@ -36,6 +40,11 @@ namespace ExchangeBot
         {
             if (e.Message.Type == MessageType.Location)
             {
+                if (await userActivityHistory.IsUserBlockedAsync(e.Message.Chat.Username))
+                {
+                    await Bot.SendTextMessageAsync(chatId: e.Message.Chat.Id, text: "🚫You Are Currently Blocked🚫");
+                    return;
+                }
                 Telegram.Bot.Types.Location userLocation = e.Message.Location;
                 double latitude = userLocation.Latitude;
                 double longitude = userLocation.Longitude;
@@ -58,8 +67,14 @@ namespace ExchangeBot
         [Obsolete]
         private async void Bot_OnMessage(object sender, MessageEventArgs e)
         {
+
             if (e.Message.Type == MessageType.Text)
             {
+                if (await userActivityHistory.IsUserBlockedAsync(e.Message.Chat.Username))
+                {
+                    await Bot.SendTextMessageAsync(chatId: e.Message.Chat.Id, text: "🚫You Are Currently Blocked🚫");
+                    return;
+                }
                 try
                 {
                     string result = string.Empty;
@@ -87,7 +102,8 @@ namespace ExchangeBot
                             await userActivityHistory.AddChatHistory(e, result);
                             break;
                         case "/getLocation":
-                            result = await location.GetLocationsAsync(nameof(EvocaBankDataScrapper));
+
+                            result = await location.GetLocationsAsync(nameof(AmeriaBankDataScrapper));
                             _ = await Bot.SendTextMessageAsync(e.Message.Chat.Id, result);
                             await userActivityHistory.AddChatHistory(e, result);
 
@@ -120,11 +136,29 @@ namespace ExchangeBot
         }
 
         [Obsolete]
-        public void Get()
+        public void StartBot()
         {
             Bot.OnMessage += Bot_OnMessage;
             Bot.StartReceiving();
             Bot.OnMessage += Bot_OnLocation;
+            _ = Console.ReadLine();
+            Bot.StopReceiving();
+        }
+
+        public void ReStartBot()
+        {
+            Bot.OnMessage += Bot_OnMessage;
+            Bot.OnMessage += Bot_OnLocation;
+            Bot.StartReceiving();
+            _ = Console.ReadLine();
+            Bot.StopReceiving();
+        }
+
+        public void StopBot()
+        {
+            Bot.OnMessage += Bot_OnMessage;
+            Bot.OnMessage += Bot_OnLocation;
+            Bot.StartReceiving();
             _ = Console.ReadLine();
             Bot.StopReceiving();
         }

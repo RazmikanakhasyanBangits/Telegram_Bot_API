@@ -54,6 +54,7 @@ namespace DataAccess.Repositories.Implementation
         public virtual async Task<T> GetDetailsAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> includes = null)
         {
             IQueryable<T> query = dbContext.Set<T>().AsQueryable();
+            
             if (includes != null)
             {
                 query = includes(query).IgnoreAutoIncludes();

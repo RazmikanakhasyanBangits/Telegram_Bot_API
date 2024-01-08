@@ -22,13 +22,13 @@ namespace ExchangeBot.Helper
             _ = services.AddScoped<IBankService, BankService>();
             _ = services.AddScoped<IBankRepository, BankRepository>();
             _ = services.AddScoped<IBestRateService, BestRateService>();
-            _ = services.AddScoped<IUserActivityHistoryService, UserActivityHistoryService>();
+            _ = services.AddTransient<IUserActivityHistoryService, UserActivityHistoryService>();
             _ = services.AddScoped<ISettingsProvider, ApiSettingsProvider>();
             _ = services.AddScoped<ICurrencyService, CurrencyService>();
             _ = services.AddScoped<ICurrencies, Currencies>();
             _ = services.AddScoped<ILocation, Location>();
             _ = services.AddScoped<ILocationService, LocationService>();
-
+            
             _ = services.AddSingleton(LoadConfiguration());
             _ = services.AddSingleton<ICommandHandler, TelegramCommandHandler>();
             _ = services.AddScoped<AmeriaBankDataScrapper>();
@@ -41,18 +41,18 @@ namespace ExchangeBot.Helper
 
         public static ServiceCollection RegisterRepositories(this ServiceCollection services)
         {
-            _ = services.AddScoped<IBankRepository, BankRepository>();
-            _ = services.AddScoped<ILocationRepository, LocationRepository>();
-            _ = services.AddScoped<IBestRatesRepository, BestRatesRepository>();
-            _ = services.AddScoped<ICurrencyRepository, CurrencyRepository>();
-            _ = services.AddScoped<IConvertRepository, ConvertRepository>();
-            _ = services.AddScoped<IChatDetailRepository, ChatDetailRepository>();
-            _ = services.AddScoped<IUserActivityHistoryRepository, UserActivityHistoryRepository>();
+            _ = services.AddTransient<IBankRepository, BankRepository>();
+            _ = services.AddTransient<ILocationRepository, LocationRepository>();
+            _ = services.AddTransient<IBestRatesRepository, BestRatesRepository>();
+            _ = services.AddTransient<ICurrencyRepository, CurrencyRepository>();
+            _ = services.AddTransient<IConvertRepository, ConvertRepository>();
+            _ = services.AddTransient<IChatDetailRepository, ChatDetailRepository>();
+            _ = services.AddTransient<IUserActivityHistoryRepository, UserActivityHistoryRepository>();
             return services;
         }
         public static ServiceCollection RegisterDbContext(this ServiceCollection services, string connectionString)
         {
-            _ = services.AddDbContext<TelegramBotDbContext>(_ => _.UseSqlServer(connectionString));
+            _ = services.AddDbContext<TelegramBotDbContext>(_ => _.UseSqlServer(connectionString),ServiceLifetime.Scoped);
             return services;
         }
         private static IConfiguration LoadConfiguration()

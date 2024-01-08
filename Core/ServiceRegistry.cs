@@ -22,6 +22,7 @@ namespace Core
             _ = services.AddScoped<IBankService, BankService>();
             _ = services.AddScoped<ICurrencies, Currencies>();
             _ = services.AddScoped<IBestRateService, BestRateService>();
+            services.AddScoped<IUserActivityHistoryService, UserActivityHistoryService>();
             return services;
         }
         public static IServiceCollection AddSwagger(this IServiceCollection services, string title)

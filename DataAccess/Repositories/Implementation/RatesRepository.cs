@@ -17,6 +17,7 @@ namespace DataAccess.Repositories.Implementation
         }
         public void BulkInsert(IEnumerable<RateModel> rate)
         {
+            var cc = _db.Rates.Count();
             var maxIteration =  _db.Rates.Count() == 0 ? 1 : _db.Rates.Max(_ => _.Iteration) + 1;
             var availables = _db.Currencies.Select(_ => _.Code).ToList();
             var ratesToAdd = rate.Where(_ => availables.Contains(_.FromCurrency))

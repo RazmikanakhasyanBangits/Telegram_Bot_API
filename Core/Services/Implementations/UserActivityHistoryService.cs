@@ -1,7 +1,10 @@
 ﻿using Core.Services.Interfaces;
 using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Shared.Enum;
 using System;
 using System.Threading.Tasks;
 using Telegram.Bot.Args;
@@ -12,15 +15,17 @@ public class UserActivityHistoryService : IUserActivityHistoryService
 {
 
     private readonly IUserActivityHistoryRepository _historyRepository;
+    private readonly IServiceScopeFactory _scopeFactory;
     private readonly IChatDetailRepository _chatDetailRepository;
 
-    public UserActivityHistoryService(IUserActivityHistoryRepository historyRepository, IChatDetailRepository chatDetailRepository)
+    public UserActivityHistoryService(IUserActivityHistoryRepository historyRepository,
+        IChatDetailRepository chatDetailRepository, IServiceScopeFactory scopeFactory)
     {
         _historyRepository = historyRepository;
         _chatDetailRepository = chatDetailRepository;
+        _scopeFactory=scopeFactory;
     }
 
-    [Obsolete]
     public async Task AddChatHistory(MessageEventArgs request, string response)
     {
         UserActivityHistory history = await _historyRepository.GetDetailsAsync(x => x.UserExternalId == request.Message.From.Id,
@@ -73,5 +78,49 @@ public class UserActivityHistoryService : IUserActivityHistoryService
 
     }
 
+    public async Task<bool> BlockUserAsync(string userName)
+    {
+        try
+        {
+            var user = await _historyRepository.GetDetailsAsync(x => x.UserName==userName);
+            user.StatusId=(short)UserStatusEnum.Blocked;
+            user.LastUpdateDate=DateTime.UtcNow;
 
+            await _historyRepository.UpdateAsync(user);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public async Task<bool> UnBlockUserAsync(string userName)
+    {
+        try
+        {
+            var user = await _historyRepository.GetDetailsAsync(x => x.UserName==userName);
+            user.StatusId=(short)UserStatusEnum.Active;
+            user.LastUpdateDate=DateTime.UtcNow;
+            await _historyRepository.UpdateAsync(user);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+
+    }
+
+    public async Task<bool> IsUserBlockedAsync(string userName)
+    {
+        using (var scope = _scopeFactory.CreateScope())
+        {
+            var scopedServices = scope.ServiceProvider;
+            var historyRepository = scopedServices.GetRequiredService<IUserActivityHistoryRepository>();
+            var user = await historyRepository.GetDetailsAsync(x => x.UserName==userName);
+
+            return user.StatusId == (short)UserStatusEnum.Blocked;
+        }
+    }
 }
