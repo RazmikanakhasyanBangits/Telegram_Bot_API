@@ -17,9 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj" />
-    <ProjectReference Include="..\DataScrapper\DataScrapper.csproj" />
-    <ProjectReference Include="..\TelegramBot\ExchangeBot.csproj" />
+    <ProjectReference Include="..\Core\Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>

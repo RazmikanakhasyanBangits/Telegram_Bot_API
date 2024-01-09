@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Core.Services.Interfaces
+namespace Core.Services.Interfaces;
+
+public interface IBestRateService
 {
-    public interface IBestRateService
-    {
-        Task<IEnumerable<BestRateModel>> GetBestRatesAsync();
-    }
+    Task<IEnumerable<BestRateModel>> GetBestRatesAsync();
 }

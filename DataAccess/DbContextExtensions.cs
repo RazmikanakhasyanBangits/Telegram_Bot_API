@@ -1,4 +1,4 @@
-﻿using DataAccess.Models;
+﻿using DataAccess.Entity;
 using Microsoft.EntityFrameworkCore;
 using Shared.Enum;
 

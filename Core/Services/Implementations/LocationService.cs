@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Core.Services.Interfaces;
-using DataAccess.Models;
+using DataAccess.Entity;
 using DataAccess.Repositories.Interfaces;
 using Shared.Models.Location;
 using Shared.Models.Static;

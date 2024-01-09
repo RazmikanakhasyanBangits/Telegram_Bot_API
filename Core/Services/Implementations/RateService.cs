@@ -1,5 +1,5 @@
 ﻿using Core.Services.Interfaces;
-using DataAccess.Models;
+using DataAccess.Entity;
 using DataAccess.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;

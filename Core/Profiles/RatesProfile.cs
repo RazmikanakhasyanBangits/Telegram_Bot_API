@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DataAccess.Models;
+using DataAccess.Entity;
 using Shared.Models.Location;
 using Shared.Models.Rates;
 

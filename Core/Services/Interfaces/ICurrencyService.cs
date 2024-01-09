@@ -1,10 +1,9 @@
 ﻿using Shared.Models.Currency;
 using System.Collections.Generic;
 
-namespace Core.Services.Interfaces
+namespace Core.Services.Interfaces;
+
+public interface ICurrencyService
 {
-    public interface ICurrencyService
-    {
-        IEnumerable<CurrencyModel> Available();
-    }
+    IEnumerable<CurrencyModel> Available();
 }

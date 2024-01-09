@@ -1,4 +1,5 @@
-﻿using DataAccess.Models;
+﻿using DataAccess.Entity;
+using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Data.Entity.Infrastructure;
@@ -25,12 +26,7 @@ namespace DataAccess
         {
             if (!optionsBuilder.IsConfigured)
             {
-                IConfigurationRoot configuration = new ConfigurationBuilder()
-                   .SetBasePath(Directory.GetCurrentDirectory())
-                   .AddJsonFile("appsettings.json")
-                   .Build();
-                string connectionString = configuration.GetConnectionString("Default");
-                _ = optionsBuilder.UseSqlServer(connectionString);
+                //optionsBuilder.UseSqlServer("");
             }
         }
         public virtual DbSet<Bank> Banks { get; set; }

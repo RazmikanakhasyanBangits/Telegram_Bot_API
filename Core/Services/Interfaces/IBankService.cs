@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Core.Services.Interfaces
+namespace Core.Services.Interfaces;
+
+public interface IBankService
 {
-    public interface IBankService
-    {
-        public IEnumerable<RatesInfoModel> AllRates();
-        Task<string> BestChange(string from, string to, double amount);
-        string GetAll();
-        string GetAllBest();
-        Task<string> GetAllBestDistances(double latitude, double longitude);
-        string GetAvailable();
-    }
+    public IEnumerable<RatesInfoModel> AllRates();
+    Task<string> BestChange(string from, string to, double amount);
+    string GetAll();
+    string GetAllBest();
+    Task<string> GetAllBestDistances(double latitude, double longitude);
+    string GetAvailable();
 }

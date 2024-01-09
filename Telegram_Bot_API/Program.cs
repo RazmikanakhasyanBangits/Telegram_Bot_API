@@ -1,37 +1,31 @@
 using API.Extensions;
 using API.GrpcServer;
 using Core;
+using Core.Services.Bot;
+using Core.Services.Bot.Abstraction;
+using Core.Services.DataScrapper.Impl;
 using Core.Services.Implementations;
 using Core.Services.Interfaces;
 using DataAccess;
 using DataAccess.Repositories.Implementation;
 using DataAccess.Repositories.Interfaces;
-using ExchangeBot;
-using ExchangeBot.Abstraction;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Shared.Infrastructure;
 using Shared.Models.Static;
-using Telegram.Bots.Types;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapperConfigurations();
 builder.Services.AddControllers();
 
 
-builder.Services.AddSingleton<ISettingsProvider, ApiSettingsProvider>();
-ServiceRegistry.RegisterServices(builder.Services);
-builder.Services.AddSwagger(SettingsConstants.SwaggerTitle);
-builder.Services.AddScoped<ICommandHandler, TelegramCommandHandler>();
-builder.Services.AddScoped<ILocation, DataScrapper.Impl.Location>();
-builder.Services.AddScoped<ILocationService, LocationService>();
-builder.Services.AddScoped<ILocationRepository, LocationRepository>();
-DataAccessRegistry.RegisterServices(builder.Services);
-DataAccessRegistry.RegisterDBContext(builder.Services, builder.Configuration["ConnectionStrings:Default"]);
 builder.Services.AddGrpc();
+
+ServiceRegistry.RegisterServices(builder.Services);
 RepositoryRegistry.RegisterRepositories(builder.Services);
+RepositoryRegistry.RegisterDbContext(builder.Services, builder.Configuration["ConnectionStrings:Default"]);
 
 Log.Logger = new LoggerConfiguration()
            .WriteTo.File("log-.txt", rollingInterval: RollingInterval.Day)

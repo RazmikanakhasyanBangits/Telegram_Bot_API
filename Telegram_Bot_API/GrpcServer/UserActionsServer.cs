@@ -1,5 +1,5 @@
-﻿using Core.Services.Interfaces;
-using ExchangeBot.Abstraction;
+﻿using Core.Services.Bot.Abstraction;
+using Core.Services.Interfaces;
 using Grpc.Core;
 using System.Threading.Tasks;
 using UserActionsProto;

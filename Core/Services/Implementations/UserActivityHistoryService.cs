@@ -1,13 +1,12 @@
 ﻿using Core.Services.Interfaces;
-using DataAccess.Models;
+using DataAccess.Entity;
 using DataAccess.Repositories.Interfaces;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Enum;
 using System;
 using System.Threading.Tasks;
-using Telegram.Bot.Args;
+using Telegram.Bot.Types;
 
 namespace Core.Services.Implementations;
 
@@ -26,7 +25,7 @@ public class UserActivityHistoryService : IUserActivityHistoryService
         _scopeFactory=scopeFactory;
     }
 
-    public async Task AddChatHistory(MessageEventArgs request, string response)
+    public async Task AddChatHistory(Update request, string response)
     {
         UserActivityHistory history = await _historyRepository.GetDetailsAsync(x => x.UserExternalId == request.Message.From.Id,
             includes: i => i.Include(x => x.ChatDetails));
@@ -109,7 +108,6 @@ public class UserActivityHistoryService : IUserActivityHistoryService
         {
             return false;
         }
-
     }
 
     public async Task<bool> IsUserBlockedAsync(long userId)

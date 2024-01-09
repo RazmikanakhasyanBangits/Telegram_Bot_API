@@ -1,4 +1,4 @@
-﻿using DataAccess.Models;
+﻿using DataAccess.Entity;
 using DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;

@@ -1,16 +1,25 @@
-﻿using Core.Services.Implementations;
+﻿// Ignore Spelling: api
+
+using Core.Profiles;
+using Core.Services.Bot.Abstraction;
+using Core.Services.Bot.Helper;
+using Core.Services.Bot;
+using Core.Services.DataScrapper.Impl;
+using Core.Services.Implementations;
 using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
+using Shared.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Shared.Models.Static;
 
 namespace Core
 {
@@ -18,12 +27,23 @@ namespace Core
     {
         public static IServiceCollection RegisterServices(IServiceCollection services)
         {
-            _ = services.AddScoped<ICurrencyService, CurrencyService>();
-            _ = services.AddScoped<IBankService, BankService>();
-            _ = services.AddScoped<ICurrencies, Currencies>();
-            _ = services.AddScoped<IBestRateService, BestRateService>();
+            services.AddSwagger(SettingsConstants.SwaggerTitle);
+
+            services.AddScoped<ICurrencyService, CurrencyService>();
+            services.AddScoped<IBankService, BankService>();
+            services.AddScoped<ICurrencies, Currencies>();
+            services.AddScoped<IBestRateService, BestRateService>();
+            services.AddScoped<ISettingsProvider, ApiSettingsProvider>();
+            services.AddScoped<ILocation, Location>();
+            services.AddScoped<ILocationService, LocationService>();
+            services.AddHostedService<TelegramCommandHandler>();
+            services.AddSingleton<ICommandHandler, TelegramCommandHandler>();
+            services.AddScoped<AmeriaBankDataScrapper>();
+            services.AddScoped<CommandSwitcher>();
+            services.AddAutoMapper(typeof(RatesProfile));
             services.AddScoped<IUserActivityHistoryService, UserActivityHistoryService>();
             return services;
+
         }
         public static IServiceCollection AddSwagger(this IServiceCollection services, string title)
         {
@@ -61,10 +81,10 @@ namespace Core
                 } });
             });
         }
-        public static IApplicationBuilder UseCustomSwagger(this WebApplication app, string swaggerPath,
+        public static IApplicationBuilder UseCustomSwagger(this WebApplication application, string swaggerPath,
             string apiPath, bool isDev, bool enableDark = false)
         {
-            _ = app.UseSwagger(delegate (SwaggerOptions options)
+            _ = application.UseSwagger(delegate (SwaggerOptions options)
             {
                 options.RouteTemplate = swaggerPath + "/swagger/{documentname}/swagger.json";
                 if (!isDev)
@@ -81,7 +101,7 @@ namespace Core
                     });
                 }
             });
-            _ = app.UseSwaggerUI(delegate (SwaggerUIOptions options)
+            _ = application.UseSwaggerUI(delegate (SwaggerUIOptions options)
             {
                 if (enableDark)
                 {
@@ -91,7 +111,7 @@ namespace Core
                 options.RoutePrefix = swaggerPath + "/swagger";
                 options.SwaggerEndpoint("/" + swaggerPath + "/swagger/v1/swagger.json", "API V1");
             });
-            return app;
+            return application;
         }
     }
 

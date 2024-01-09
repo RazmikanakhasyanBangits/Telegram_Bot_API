@@ -1,13 +1,9 @@
-﻿using DataAccess.Models;
-using System;
+﻿using DataAccess.Entity;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.Repositories.Interfaces
 {
-   public interface IRatesRepository
+    public interface IRatesRepository
     {
          Task BulkInsert(IEnumerable<RateModel> rate);
     }

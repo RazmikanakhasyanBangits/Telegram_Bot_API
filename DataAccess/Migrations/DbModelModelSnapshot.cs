@@ -20,7 +20,7 @@ namespace DataAccess.Migrations
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DataAccess.Models.Bank", b =>
+            modelBuilder.Entity("DataAccess.Entity.Bank", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -43,7 +43,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Banks");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.BankLocation", b =>
+            modelBuilder.Entity("DataAccess.Entity.BankLocation", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -77,7 +77,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Locations");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.BotHistory", b =>
+            modelBuilder.Entity("DataAccess.Entity.BotHistory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -105,7 +105,7 @@ namespace DataAccess.Migrations
                     b.ToTable("BotHistory");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.ChatDetail", b =>
+            modelBuilder.Entity("DataAccess.Entity.ChatDetail", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -136,7 +136,7 @@ namespace DataAccess.Migrations
                     b.ToTable("ChatDetails");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.Currency", b =>
+            modelBuilder.Entity("DataAccess.Entity.Currency", b =>
                 {
                     b.Property<string>("Code")
                         .HasMaxLength(3)
@@ -151,7 +151,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Currencies");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.RateModel", b =>
+            modelBuilder.Entity("DataAccess.Entity.RateModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -194,14 +194,14 @@ namespace DataAccess.Migrations
                     b.ToTable("Rates");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.UserActivityHistory", b =>
+            modelBuilder.Entity("DataAccess.Entity.UserActivityHistory", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Bio")
+                    b.Property<string>("UserExternalBi")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreationDate")
@@ -244,7 +244,7 @@ namespace DataAccess.Migrations
                     b.ToTable("UsersActivityHistories");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.UserRole", b =>
+            modelBuilder.Entity("DataAccess.Entity.UserRole", b =>
                 {
                     b.Property<short>("Id")
                         .ValueGeneratedOnAdd()
@@ -286,7 +286,7 @@ namespace DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DataAccess.Models.UserStatus", b =>
+            modelBuilder.Entity("DataAccess.Entity.UserStatus", b =>
                 {
                     b.Property<short>("Id")
                         .ValueGeneratedOnAdd()
@@ -328,9 +328,9 @@ namespace DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DataAccess.Models.BankLocation", b =>
+            modelBuilder.Entity("DataAccess.Entity.BankLocation", b =>
                 {
-                    b.HasOne("DataAccess.Models.Bank", "Bank")
+                    b.HasOne("DataAccess.Entity.Bank", "Bank")
                         .WithMany("Locations")
                         .HasForeignKey("BankId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -339,9 +339,9 @@ namespace DataAccess.Migrations
                     b.Navigation("Bank");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.ChatDetail", b =>
+            modelBuilder.Entity("DataAccess.Entity.ChatDetail", b =>
                 {
-                    b.HasOne("DataAccess.Models.UserActivityHistory", "UsersActivityHistory")
+                    b.HasOne("DataAccess.Entity.UserActivityHistory", "UsersActivityHistory")
                         .WithMany("ChatDetails")
                         .HasForeignKey("UserActivityHistoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -350,21 +350,21 @@ namespace DataAccess.Migrations
                     b.Navigation("UsersActivityHistory");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.RateModel", b =>
+            modelBuilder.Entity("DataAccess.Entity.RateModel", b =>
                 {
-                    b.HasOne("DataAccess.Models.Bank", "Bank")
+                    b.HasOne("DataAccess.Entity.Bank", "Bank")
                         .WithMany("Rates")
                         .HasForeignKey("BankId")
                         .HasConstraintName("FK_Rates_Banks")
                         .IsRequired();
 
-                    b.HasOne("DataAccess.Models.Currency", "FromCurrencyNavigation")
+                    b.HasOne("DataAccess.Entity.Currency", "FromCurrencyNavigation")
                         .WithMany("RateFromCurrencyNavigations")
                         .HasForeignKey("FromCurrency")
                         .HasConstraintName("FK_Rates_Currencies")
                         .IsRequired();
 
-                    b.HasOne("DataAccess.Models.Currency", "ToCurrencyNavigation")
+                    b.HasOne("DataAccess.Entity.Currency", "ToCurrencyNavigation")
                         .WithMany("RateToCurrencyNavigations")
                         .HasForeignKey("ToCurrency")
                         .HasConstraintName("FK_Rates_Currencies1")
@@ -377,15 +377,15 @@ namespace DataAccess.Migrations
                     b.Navigation("ToCurrencyNavigation");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.UserActivityHistory", b =>
+            modelBuilder.Entity("DataAccess.Entity.UserActivityHistory", b =>
                 {
-                    b.HasOne("DataAccess.Models.UserRole", "Role")
+                    b.HasOne("DataAccess.Entity.UserRole", "Role")
                         .WithMany("UserActivities")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataAccess.Models.UserStatus", "Status")
+                    b.HasOne("DataAccess.Entity.UserStatus", "Status")
                         .WithMany("UserActivities")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -396,31 +396,31 @@ namespace DataAccess.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.Bank", b =>
+            modelBuilder.Entity("DataAccess.Entity.Bank", b =>
                 {
                     b.Navigation("Locations");
 
                     b.Navigation("Rates");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.Currency", b =>
+            modelBuilder.Entity("DataAccess.Entity.Currency", b =>
                 {
                     b.Navigation("RateFromCurrencyNavigations");
 
                     b.Navigation("RateToCurrencyNavigations");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.UserActivityHistory", b =>
+            modelBuilder.Entity("DataAccess.Entity.UserActivityHistory", b =>
                 {
                     b.Navigation("ChatDetails");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.UserRole", b =>
+            modelBuilder.Entity("DataAccess.Entity.UserRole", b =>
                 {
                     b.Navigation("UserActivities");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.UserStatus", b =>
+            modelBuilder.Entity("DataAccess.Entity.UserStatus", b =>
                 {
                     b.Navigation("UserActivities");
                 });

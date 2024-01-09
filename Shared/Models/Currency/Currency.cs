@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Shared.Models.Currency;
 
-namespace Shared.Models.Currency
+public class CurrencyModel
 {
-    public class CurrencyModel
-    {
-        public string Code { get; set; }
-        public string Description { get; set; }
-    }
+    public string Code { get; set; }
+    public string Description { get; set; }
 }

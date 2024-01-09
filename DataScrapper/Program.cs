@@ -1,11 +1,11 @@
-﻿using Core.Services.Implementations;
+﻿using Core.Services.DataScrapper.Abstraction;
+using Core.Services.DataScrapper.Impl;
+using Core.Services.Implementations;
 using DataAccess;
 using DataAccess.Models;
 using DataAccess.Repositories.Implementation;
-using DataScrapper.Abstraction;
-using DataScrapper.Impl;
-using htmlWrapDemo;
 using Newtonsoft.Json.Linq;
+using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,7 +31,7 @@ namespace DataScrapper
                 new UniBankDataScrapper()
             };
 
-            List<CurrencyModel> all = new();
+            List<ExchangeCurrency> all = new();
 
             foreach (IDataScrapper scrapper in list)
             {
@@ -41,9 +41,9 @@ namespace DataScrapper
                 Console.ForegroundColor = ConsoleColor.Blue;
                 try
                 {
-                    IEnumerable<CurrencyModel> data = scrapper.Get();
+                    IEnumerable<ExchangeCurrency> data = scrapper.Get();
                     all.AddRange(data);
-                    foreach (CurrencyModel item in data)
+                    foreach (ExchangeCurrency item in data)
                     {
                         Console.WriteLine("Currency: {0} BuyValue: {1} SellValue: {2}", item.Currency, item.BuyValue, item.SellValue);
                     }

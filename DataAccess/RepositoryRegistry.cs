@@ -9,11 +9,14 @@ namespace DataAccess
     {
         public static void RegisterRepositories(IServiceCollection services)
         {
-            _ = services.AddScoped<ICurrencyRepository, CurrencyRepository>();
-            _ = services.AddScoped<IBankRepository, BankRepository>();
-            _ = services.AddScoped<IRatesRepository, RatesRepository>();
+            services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+            services.AddScoped<IBankRepository, BankRepository>();
+            services.AddScoped<IRatesRepository, RatesRepository>();
+            services.AddScoped<IConvertRepository, ConvertRepository>();
+            services.AddScoped<IBestRatesRepository, BestRatesRepository>();
             services.AddScoped<IUserActivityHistoryRepository, UserActivityHistoryRepository>();
             services.AddScoped<IChatDetailRepository, ChatDetailRepository>();
+            services.AddTransient<ILocationRepository, LocationRepository>();
         }
         public static void RegisterDbContext(IServiceCollection services, string connectionString)
         {

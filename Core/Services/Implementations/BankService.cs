@@ -1,6 +1,6 @@
 ﻿using Core.Helper;
 using Core.Services.Interfaces;
-using DataAccess.Models;
+using DataAccess.Entity;
 using DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Shared;
