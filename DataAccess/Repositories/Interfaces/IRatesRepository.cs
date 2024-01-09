@@ -1,5 +1,6 @@
 ﻿using DataAccess.Entity;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DataAccess.Repositories.Interfaces
 {

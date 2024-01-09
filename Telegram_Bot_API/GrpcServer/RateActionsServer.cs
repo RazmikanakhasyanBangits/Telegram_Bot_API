@@ -1,19 +1,17 @@
 ﻿using Core.Services.Implementations;
-using Core.Services.Interfaces;
 using DataAccess.Repositories.Implementation;
 using DataAccess;
-using DataScrapper.Abstraction;
-using DataScrapper.Impl;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using System.Collections.Generic;
-using System;
 using System.Threading.Tasks;
-using UserActionsProto;
 using Microsoft.Extensions.Configuration;
-using htmlWrapDemo;
 using System.Linq;
-using DataAccess.Models;
+using Core.Services.DataScrapper.Abstraction;
+using Core.Services.DataScrapper.Impl;
+using DataAccess.Entity;
+using Shared.Models;
+using UserActionsProto;
 
 namespace API.GrpcServer;
 
@@ -39,13 +37,13 @@ public class RateActionsServer : RateActions.RateActionsBase
                 new UniBankDataScrapper()
             };
 
-        List<CurrencyModel> all = new();
+        List<ExchangeCurrency> all = new();
 
         foreach (IDataScrapper scrapper in list)
         {
             try
             {
-                IEnumerable<CurrencyModel> data = scrapper.Get();
+                IEnumerable<ExchangeCurrency> data = scrapper.Get();
                 all.AddRange(data);
             }
             catch

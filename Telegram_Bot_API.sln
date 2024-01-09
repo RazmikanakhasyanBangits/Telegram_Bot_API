@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "Telegram_Bot_API\API.csproj", "{65DF9143-0CC9-4723-B394-BA38FD7D9A84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.TelegramBot", "Telegram_Bot_API\Api.TelegramBot.csproj", "{65DF9143-0CC9-4723-B394-BA38FD7D9A84}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Core\Service.csproj", "{E3BA9EC9-984E-40C9-8AE9-2BE0E023E498}"
 EndProject

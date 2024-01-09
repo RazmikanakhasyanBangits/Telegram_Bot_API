@@ -16,5 +16,6 @@
   </ItemGroup>
 	<ItemGroup>
 		<Protobuf Include="Grpc\exchangeBot.proto" GrpcServices="Server" />
+		<Protobuf Include="Grpc\exchangeBotRates.proto" GrpcServices="Server" />
 	</ItemGroup>
 </Project>

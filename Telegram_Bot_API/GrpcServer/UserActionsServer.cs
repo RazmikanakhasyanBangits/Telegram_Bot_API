@@ -1,10 +1,12 @@
-﻿using Core.Services.Bot.Abstraction;
+﻿// Ignore Spelling: Api Grpc
+
+using Core.Services.Bot.Abstraction;
 using Core.Services.Interfaces;
 using Grpc.Core;
 using System.Threading.Tasks;
 using UserActionsProto;
 
-namespace API.GrpcServer
+namespace Api.TelegramBot.GrpcServer
 {
     public class UserActionsServer : UserActions.UserActionsBase
     {
@@ -13,8 +15,8 @@ namespace API.GrpcServer
 
         public UserActionsServer(IUserActivityHistoryService userActivityHistoryService, ICommandHandler commandHandler)
         {
-            this.userActivityHistoryService=userActivityHistoryService;
-            this.commandHandler=commandHandler;
+            this.userActivityHistoryService = userActivityHistoryService;
+            this.commandHandler = commandHandler;
         }
 
         public override async Task<BlockUserGrpcResponseModel> BlockUser(BlockUserGrpcRequestModel request, ServerCallContext context)
@@ -31,7 +33,7 @@ namespace API.GrpcServer
             commandHandler.ReStartBot();
             return Task.FromResult(new ReStartBotGrpcResponse());
         }
-        public override  Task<StopBotGrpcResponse> StopBot(StopBotGrpcRequest request, ServerCallContext context)
+        public override Task<StopBotGrpcResponse> StopBot(StopBotGrpcRequest request, ServerCallContext context)
         {
             commandHandler.StopBot();
             return Task.FromResult(new StopBotGrpcResponse());
