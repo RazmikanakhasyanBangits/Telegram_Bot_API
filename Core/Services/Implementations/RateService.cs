@@ -2,6 +2,7 @@
 using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Core.Services.Implementations
 {
@@ -13,9 +14,9 @@ namespace Core.Services.Implementations
             _dataScrapper = dataScrapper;
         }
 
-        public void BulkInsert(IEnumerable<RateModel> rate)
+        public async Task BulkInsert(IEnumerable<RateModel> rate)
         {
-            _dataScrapper.BulkInsert(rate);
+            await _dataScrapper.BulkInsert(rate);
         }
 
 

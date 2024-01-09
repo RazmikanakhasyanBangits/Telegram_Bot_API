@@ -48,6 +48,7 @@ app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
 app.MapGrpcService<UserActionsServer>();
+app.MapGrpcService<RateActionsServer>();
 _ = app.UseEndpoints(endpoints =>
 {
     _ = endpoints.MapControllers();

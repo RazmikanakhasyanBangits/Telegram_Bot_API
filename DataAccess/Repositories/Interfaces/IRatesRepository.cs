@@ -9,6 +9,6 @@ namespace DataAccess.Repositories.Interfaces
 {
    public interface IRatesRepository
     {
-        void BulkInsert(IEnumerable<RateModel> currency);
+         Task BulkInsert(IEnumerable<RateModel> rate);
     }
 }

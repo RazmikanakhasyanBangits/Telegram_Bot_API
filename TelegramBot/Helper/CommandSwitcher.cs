@@ -12,7 +12,7 @@ public class CommandSwitcher
         CommandDictionary = new Dictionary<string, Func<long, string>>
         {
             {"/all", x=> bankService.GetAll() },
-            {"/allBest", x=> bankService.GetAllBest() },
+            {"/allbest", x=> bankService.GetAllBest() },
             {"/available", x=> bankService.GetAvailable()},
         };
     }

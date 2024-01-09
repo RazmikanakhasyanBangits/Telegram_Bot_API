@@ -15,7 +15,7 @@ namespace DataAccess.Repositories.Implementation
         {
             _db = db;
         }
-        public void BulkInsert(IEnumerable<RateModel> rate)
+        public async Task BulkInsert(IEnumerable<RateModel> rate)
         {
             var cc = _db.Rates.Count();
             var maxIteration =  _db.Rates.Count() == 0 ? 1 : _db.Rates.Max(_ => _.Iteration) + 1;
@@ -32,7 +32,7 @@ namespace DataAccess.Repositories.Implementation
             }
 
             _db.Rates.AddRange(ratesToAdd);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
     }
 }

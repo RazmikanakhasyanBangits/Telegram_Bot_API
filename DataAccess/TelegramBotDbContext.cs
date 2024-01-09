@@ -1,7 +1,12 @@
 ﻿using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Data.Entity.Infrastructure;
 using System.IO;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DataAccess
 {
@@ -128,5 +133,7 @@ namespace DataAccess
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        
     }
 }

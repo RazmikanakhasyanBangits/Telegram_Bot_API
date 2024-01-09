@@ -14,7 +14,7 @@ namespace DataAccess
         }
         public static void RegisterDBContext(IServiceCollection services, string connectionString)
         {
-            _ = services.AddDbContext<TelegramBotDbContext>(_ => _.UseSqlServer(connectionString));
+            _ = services.AddDbContext<TelegramBotDbContext>(_ => _.UseSqlServer(connectionString),ServiceLifetime.Transient);
         }
     }
 }

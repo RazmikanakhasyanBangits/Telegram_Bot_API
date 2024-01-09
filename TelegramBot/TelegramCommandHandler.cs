@@ -36,7 +36,6 @@ namespace ExchangeBot
             this.userActivityHistory = userActivityHistory;
         }
 
-        [Obsolete]
         private async void Bot_OnLocation(object sender, MessageEventArgs e)
         {
             if (e.Message.Type == MessageType.Location)
@@ -58,7 +57,7 @@ namespace ExchangeBot
                 _ = await Bot.SendTextMessageAsync(
                 e.Message.Chat.Id,
                 "Processing...",
-                replyMarkup: buttons);
+                replyMarkup: null);
                 _ = await Bot.SendTextMessageAsync(e.Message.Chat.Id, "Done!");
                 e.Message.Text = "/locationResponse";
                 await userActivityHistory.AddChatHistory(e, result);
@@ -91,18 +90,13 @@ namespace ExchangeBot
                         _ = await Bot.SendTextMessageAsync(e.Message.Chat.Id, await bankService.BestChange(from, to, amount));
                         return;
                     }
-                    switch (e.Message.Text)
+                    switch (e.Message.Text.ToLower())
                     {
                         case "/start":
-                            ReplyKeyboardMarkup buttons = ButtonSettings.ShowButtons(e.Message.Chat.Id, (TelegramBotClient)sender);
-                            _ = await ((TelegramBotClient)sender).SendTextMessageAsync(
-                            e.Message.Chat.Id,
-                            "Processing...",
-                            replyMarkup: buttons);
-                            _ = await Bot.SendTextMessageAsync(e.Message.Chat.Id, "Done!");
+                            _ = await Bot.SendTextMessageAsync(e.Message.Chat.Id, "How Can I Help You?");
                             await userActivityHistory.AddChatHistory(e, result);
                             break;
-                        case "/getLocation":
+                        case "/getlocation":
 
                             result = await location.GetLocationsAsync(nameof(AmeriaBankDataScrapper));
                             _ = await Bot.SendTextMessageAsync(e.Message.Chat.Id, result);
@@ -111,7 +105,7 @@ namespace ExchangeBot
                             break;
                         case "/location":
                             KeyboardButton request = new("Փոխանցել") { RequestLocation = true };
-                            ReplyKeyboardMarkup replyMarkup = new(new[] { new[] { request } });
+                            ReplyKeyboardMarkup replyMarkup = new(new[] { new[] { request } }, true, true);
 
                             _ = await ((TelegramBotClient)sender).SendTextMessageAsync(
                                 chatId: e.Message.Chat,
@@ -136,7 +130,6 @@ namespace ExchangeBot
             }
         }
 
-        [Obsolete]
         public void StartBot()
         {
             Bot.OnMessage += Bot_OnMessage;
