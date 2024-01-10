@@ -1,4 +1,4 @@
-﻿using Shared.Models.Rates;
+﻿using Service.Model.Models.Rates;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

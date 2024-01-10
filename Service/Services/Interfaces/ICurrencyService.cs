@@ -1,4 +1,4 @@
-﻿using Shared.Models.Currency;
+﻿using Service.Model.Models.Currency;
 using System.Collections.Generic;
 
 namespace Core.Services.Interfaces;

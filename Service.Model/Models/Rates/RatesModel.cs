@@ -1,15 +1,13 @@
-﻿namespace Shared.Models.Rates
-{
-    public class RatesModel
-    {
-        public decimal Buy { get; set; }
-        public decimal Sell { get; set; }
-    }
-    public class CurrencyRate
-    {
-        public string BaseCurrency { get; set; }
-        public RatesModel Rates { get; set; }
+﻿namespace Service.Model.Models.Rates;
 
-    }
+public class RatesModel
+{
+    public decimal Buy { get; set; }
+    public decimal Sell { get; set; }
+}
+public class CurrencyRate
+{
+    public string BaseCurrency { get; set; }
+    public RatesModel Rates { get; set; }
 
 }

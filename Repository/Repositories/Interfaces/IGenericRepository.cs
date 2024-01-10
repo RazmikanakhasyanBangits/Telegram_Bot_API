@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace DataAccess.Repositories.Interfaces
+namespace Repository.Repositories.Interfaces
 {
     public interface IGenericRepository<T>
     {

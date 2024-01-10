@@ -1,4 +1,4 @@
-﻿using DataAccess.Repositories.Interfaces;
+﻿using Repository.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Query;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace DataAccess.Repositories.Implementation
+namespace Repository.Repositories.Implementation
 {
     public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
     {

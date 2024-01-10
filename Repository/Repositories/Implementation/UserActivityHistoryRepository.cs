@@ -1,7 +1,7 @@
-﻿using DataAccess.Entity;
-using DataAccess.Repositories.Interfaces;
+﻿using Repository.Entity;
+using Repository.Repositories.Interfaces;
 
-namespace DataAccess.Repositories.Implementation;
+namespace Repository.Repositories.Implementation;
 
 public class UserActivityHistoryRepository : GenericRepository<UserActivityHistory>, IUserActivityHistoryRepository
 {

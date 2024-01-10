@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Repository.Entity;
+using System.Collections.Generic;
 
-namespace DataAccess.Entity;
+namespace Repository.Entity;
 
 public partial class Bank
 {

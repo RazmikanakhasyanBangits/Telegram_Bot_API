@@ -1,6 +1,6 @@
 ﻿using Core.Services.Interfaces;
-using DataAccess.Entity;
-using DataAccess.Repositories.Interfaces;
+using Repository.Entity;
+using Repository.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

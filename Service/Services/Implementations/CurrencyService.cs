@@ -1,7 +1,7 @@
 ﻿using Core.Services.Interfaces;
-using DataAccess.Entity;
-using DataAccess.Repositories.Interfaces;
-using Shared.Models.Currency;
+using Repository.Repositories.Interfaces;
+using Repository.Entity;
+using Service.Model.Models.Currency;
 using System.Collections.Generic;
 using System.Linq;
 

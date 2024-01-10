@@ -1,7 +1,8 @@
-﻿using System;
+﻿
 
+using System;
 
-namespace DataAccess.Models
+namespace Repository.Entity
 {
     public partial class BotHistory
     {

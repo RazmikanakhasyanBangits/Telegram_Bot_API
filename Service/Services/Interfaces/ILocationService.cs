@@ -1,4 +1,4 @@
-﻿using Shared.Models.Location;
+﻿using Service.Model.Models.Location;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Repository.Entity;
 using System.Collections.Generic;
 
-namespace DataAccess.Entity;
+namespace Repository.Entity;
 
 public class UserRole : BaseEntity<short>
 {

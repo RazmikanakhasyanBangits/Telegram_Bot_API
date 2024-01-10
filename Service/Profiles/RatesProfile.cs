@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using DataAccess.Entity;
-using Shared.Models.Location;
-using Shared.Models.Rates;
+using Repository.Entity;
+using Service.Model.Models.Location;
+using Service.Model.Models.Rates;
 
 namespace Core.Profiles
 {

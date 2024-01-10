@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Shared.Models.Location;
+namespace Service.Model.Models.Location;
 
 public class GetLocationResponseModel
 {

@@ -1,15 +1,16 @@
 ﻿// Ignore Spelling: DataImp
 
+using Core.Services.DataScrapper.Impl;
 using Core.Services.Implementations;
 using Core.Services.Interfaces;
-using Shared.Models.Location;
-using Shared.Models.Static;
+using Service.Model.Models.Location;
+using Service.Model.Models.Static;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Services.DataScrapper.Impl
+namespace Service.Services.DataScrapper.Implementation
 {
     public class Location : ILocation
     {

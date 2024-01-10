@@ -1,6 +1,6 @@
 ﻿using Core.Services.Implementations;
 using Core.Services.Interfaces;
-using DataAccess.Repositories.Implementation;
+using Repository.Repositories.Implementation;
 using DataScrapper.Impl;
 using ExchangeBot.Abstraction;
 using Microsoft.Extensions.Configuration;

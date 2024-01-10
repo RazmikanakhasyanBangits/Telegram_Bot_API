@@ -1,7 +1,7 @@
 ﻿using Core.Services.Interfaces;
-using DataAccess.Repositories.Interfaces;
-using Shared.Infrastructure;
-using Shared.Model;
+using Repository.Repositories.Interfaces;
+using Service.Model.Infrastructure;
+using Service.Model.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

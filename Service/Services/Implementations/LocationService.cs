@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Core.Services.Interfaces;
-using DataAccess.Entity;
-using DataAccess.Repositories.Interfaces;
-using Shared.Models.Location;
-using Shared.Models.Static;
+using Repository.Repositories.Interfaces;
+using Repository.Entity;
+using Service.Model.Models.Location;
+using Service.Model.Models.Static;
 using System;
 using System.Collections.Generic;
 using System.Linq;

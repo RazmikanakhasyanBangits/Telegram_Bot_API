@@ -1,4 +1,4 @@
-﻿namespace Shared.Enum;
+﻿namespace Service.Model.Enum;
 
 public enum UserRoleEnum
 {

@@ -1,8 +1,8 @@
-﻿using Shared.Model;
+﻿using Service.Model.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DataAccess.Repositories.Interfaces
+namespace Repository.Repositories.Interfaces
 {
     public interface IConvertRepository
     {

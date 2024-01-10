@@ -1,9 +1,9 @@
-﻿using DataAccess.Repositories.Implementation;
-using DataAccess.Repositories.Interfaces;
+﻿using Repository.Repositories.Implementation;
+using Repository.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DataAccess
+namespace Repository
 {
     public class RepositoryRegistry
     {

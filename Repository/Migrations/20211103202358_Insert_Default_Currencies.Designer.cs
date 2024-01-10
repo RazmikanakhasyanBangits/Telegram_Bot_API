@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DataAccess.Migrations
+namespace Repository.Migrations
 {
     [DbContext(typeof(TelegramBotDbContext))]
     [Migration("20211103202358_Insert_Default_Currencies")]
@@ -21,7 +21,7 @@ namespace DataAccess.Migrations
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DataAccess.Entity.Bank", b =>
+            modelBuilder.Entity("Repository.Entity.Bank", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,7 +44,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Banks");
                 });
 
-            modelBuilder.Entity("DataAccess.Entity.BotHistory", b =>
+            modelBuilder.Entity("Repository.Entity.BotHistory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,7 +72,7 @@ namespace DataAccess.Migrations
                     b.ToTable("BotHistory");
                 });
 
-            modelBuilder.Entity("DataAccess.Entity.Currency", b =>
+            modelBuilder.Entity("Repository.Entity.Currency", b =>
                 {
                     b.Property<string>("Code")
                         .HasMaxLength(3)
@@ -87,7 +87,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Currencies");
                 });
 
-            modelBuilder.Entity("DataAccess.Entity.Rate", b =>
+            modelBuilder.Entity("Repository.Entity.Rate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -130,21 +130,21 @@ namespace DataAccess.Migrations
                     b.ToTable("Rates");
                 });
 
-            modelBuilder.Entity("DataAccess.Entity.Rate", b =>
+            modelBuilder.Entity("Repository.Entity.Rate", b =>
                 {
-                    b.HasOne("DataAccess.Entity.Bank", "Bank")
+                    b.HasOne("Repository.Entity.Bank", "Bank")
                         .WithMany("Rates")
                         .HasForeignKey("BankId")
                         .HasConstraintName("FK_Rates_Banks")
                         .IsRequired();
 
-                    b.HasOne("DataAccess.Entity.Currency", "FromCurrencyNavigation")
+                    b.HasOne("Repository.Entity.Currency", "FromCurrencyNavigation")
                         .WithMany("RateFromCurrencyNavigations")
                         .HasForeignKey("FromCurrency")
                         .HasConstraintName("FK_Rates_Currencies")
                         .IsRequired();
 
-                    b.HasOne("DataAccess.Entity.Currency", "ToCurrencyNavigation")
+                    b.HasOne("Repository.Entity.Currency", "ToCurrencyNavigation")
                         .WithMany("RateToCurrencyNavigations")
                         .HasForeignKey("ToCurrency")
                         .HasConstraintName("FK_Rates_Currencies1")
@@ -157,12 +157,12 @@ namespace DataAccess.Migrations
                     b.Navigation("ToCurrencyNavigation");
                 });
 
-            modelBuilder.Entity("DataAccess.Entity.Bank", b =>
+            modelBuilder.Entity("Repository.Entity.Bank", b =>
                 {
                     b.Navigation("Rates");
                 });
 
-            modelBuilder.Entity("DataAccess.Entity.Currency", b =>
+            modelBuilder.Entity("Repository.Entity.Currency", b =>
                 {
                     b.Navigation("RateFromCurrencyNavigations");
 

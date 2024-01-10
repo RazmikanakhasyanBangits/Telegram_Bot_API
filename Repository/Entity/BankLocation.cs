@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataAccess.Entity;
+namespace Repository.Entity;
 
 public class BankLocation
 {

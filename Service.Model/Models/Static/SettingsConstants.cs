@@ -1,4 +1,4 @@
-﻿namespace Shared.Models.Static;
+﻿namespace Service.Model.Models.Static;
 
 public static class SettingsConstants
 {

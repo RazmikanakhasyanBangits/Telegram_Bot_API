@@ -1,5 +1,5 @@
 ﻿
-using Shared.Model;
+using Service.Model.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

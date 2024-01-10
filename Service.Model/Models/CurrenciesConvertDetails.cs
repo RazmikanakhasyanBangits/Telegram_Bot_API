@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Shared.Model
+namespace Service.Model.Models
 {
     public class CurrenciesConvertDetails
     {
-       
+
         public string To { get; set; }
 
         public decimal Value { get; set; }
@@ -15,7 +15,7 @@ namespace Shared.Model
     {
         public string From { get; set; }
         public string BestBank { get; set; }
-        
+
         public DateTime LastUpdated { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shared.Models
+namespace Service.Model.Models
 {
     public class Rate
     {

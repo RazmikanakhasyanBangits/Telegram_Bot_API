@@ -1,14 +1,14 @@
-﻿using DataAccess.Entity;
-using DataAccess.Repositories.Interfaces;
+﻿using Repository.Entity;
+using Repository.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using Shared.Infrastructure;
-using Shared.Models;
+using Service.Model.Infrastructure;
+using Service.Model.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DataAccess.Repositories.Implementation
+namespace Repository.Repositories.Implementation
 {
     public class BestRatesRepository : IBestRatesRepository
     {

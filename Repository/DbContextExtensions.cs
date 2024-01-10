@@ -1,8 +1,8 @@
-﻿using DataAccess.Entity;
+﻿using Repository.Entity;
 using Microsoft.EntityFrameworkCore;
-using Shared.Enum;
+using Service.Model.Enum;
 
-namespace DataAccess;
+namespace Repository;
 
 public static class DbContextExtensions
 {

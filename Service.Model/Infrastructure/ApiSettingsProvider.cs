@@ -1,6 +1,6 @@
 ﻿// Ignore Spelling: Api
 
-namespace Shared.Infrastructure
+namespace Service.Model.Infrastructure
 {
     public class ApiSettingsProvider : ISettingsProvider
     {

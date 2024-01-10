@@ -1,4 +1,4 @@
-﻿using Shared.Models;
+﻿using Service.Model.Models;
 using System.Collections.Generic;
 
 namespace Core.Services.DataScrapper.Abstraction

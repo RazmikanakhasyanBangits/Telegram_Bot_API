@@ -1,10 +1,11 @@
-﻿using DataAccess.Entity;
-using DataAccess.Repositories.Interfaces;
+﻿using Repository.Entity;
+using Repository.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Repository.Entity;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataAccess.Repositories.Implementation
+namespace Repository.Repositories.Implementation
 {
     public class BankRepository : GenericRepository<Bank>, IBankRepository
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DataAccess.Migrations
+namespace Repository.Migrations
 {
     public partial class Insert_Default_Banks : Migration
     {

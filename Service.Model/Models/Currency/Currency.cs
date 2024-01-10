@@ -1,4 +1,4 @@
-﻿namespace Shared.Models.Currency;
+﻿namespace Service.Model.Models.Currency;
 
 public class CurrencyModel
 {

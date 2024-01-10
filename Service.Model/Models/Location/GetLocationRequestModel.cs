@@ -1,6 +1,6 @@
 ﻿// Ignore Spelling: Api
 
-namespace Shared.Models.Location;
+namespace Service.Model.Models.Location;
 
 public class GetLocationRequestModel
 {

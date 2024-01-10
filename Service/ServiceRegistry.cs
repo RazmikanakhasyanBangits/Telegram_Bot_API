@@ -4,7 +4,6 @@ using Core.Profiles;
 using Core.Services.Bot.Abstraction;
 using Core.Services.Bot.Helper;
 using Core.Services.Bot;
-using Core.Services.DataScrapper.Impl;
 using Core.Services.Implementations;
 using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -12,14 +11,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
-using Shared.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Shared.Models.Static;
+using Service.Model.Infrastructure;
+using Service.Model.Models.Static;
+using Service.Services.DataScrapper.Implementation;
 
 namespace Core
 {

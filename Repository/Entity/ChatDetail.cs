@@ -1,8 +1,9 @@
 ﻿// Ignore Spelling: Ef
+using Repository.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace DataAccess.Entity;
+namespace Repository.Entity;
 
 public class ChatDetail
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shared.Models
+namespace Service.Model.Models
 {
     public class BestRateModel
     {
@@ -10,7 +10,7 @@ namespace Shared.Models
         public string BestBankForSelling { get; set; }
         public decimal BuyValue { get; set; }
         public decimal SellValue { get; set; }
-      
+
         public DateTime LastUpdated { get; set; }
     }
 }

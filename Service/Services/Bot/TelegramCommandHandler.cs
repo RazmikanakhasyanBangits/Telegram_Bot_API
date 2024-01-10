@@ -1,11 +1,11 @@
 ﻿using Core.Services.Bot.Abstraction;
 using Core.Services.Bot.Helper;
-using Core.Services.DataScrapper.Impl;
 using Core.Services.Implementations;
 using Core.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Service.Services.DataScrapper.Implementation;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading;

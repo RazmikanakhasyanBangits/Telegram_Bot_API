@@ -1,6 +1,4 @@
 ﻿using Core.Services.Implementations;
-using DataAccess.Repositories.Implementation;
-using DataAccess;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using System.Collections.Generic;
@@ -9,9 +7,12 @@ using Microsoft.Extensions.Configuration;
 using System.Linq;
 using Core.Services.DataScrapper.Abstraction;
 using Core.Services.DataScrapper.Impl;
-using DataAccess.Entity;
-using Shared.Models;
 using UserActionsProto;
+using Service.Model.Models;
+using Repository.Repositories.Implementation;
+using Repository;
+using Repository.Entity;
+using Service.Services.DataScrapper.Implementation;
 
 namespace API.GrpcServer;
 

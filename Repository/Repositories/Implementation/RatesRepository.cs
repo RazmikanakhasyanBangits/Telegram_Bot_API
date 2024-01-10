@@ -1,11 +1,11 @@
-﻿using DataAccess.Entity;
-using DataAccess.Repositories.Interfaces;
+﻿using Repository.Entity;
+using Repository.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DataAccess.Repositories.Implementation
+namespace Repository.Repositories.Implementation
 {
     public class RatesRepository : IRatesRepository
     {

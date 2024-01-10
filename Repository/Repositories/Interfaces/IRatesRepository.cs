@@ -1,8 +1,8 @@
-﻿using DataAccess.Entity;
+﻿using Repository.Entity;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DataAccess.Repositories.Interfaces
+namespace Repository.Repositories.Interfaces
 {
     public interface IRatesRepository
     {

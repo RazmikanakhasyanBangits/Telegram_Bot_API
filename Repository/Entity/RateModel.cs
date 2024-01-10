@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Repository.Entity;
+using System;
 
 
-namespace DataAccess.Entity
+namespace Repository.Entity
 {
     public partial class RateModel
     {

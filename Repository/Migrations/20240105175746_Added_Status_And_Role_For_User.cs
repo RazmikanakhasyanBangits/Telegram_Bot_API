@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
-namespace DataAccess.Migrations
+namespace Repository.Migrations
 {
     public partial class Added_Status_And_Role_For_User : Migration
     {

@@ -1,12 +1,11 @@
-﻿using DataAccess.Repositories.Interfaces;
-using Shared.Infrastructure;
-using Shared.Model;
-using Shared.Models;
+﻿using Repository.Repositories.Interfaces;
+using Service.Model.Infrastructure;
+using Service.Model.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DataAccess.Repositories.Implementation
+namespace Repository.Repositories.Implementation
 {
     public class ConvertRepository : IConvertRepository
     {

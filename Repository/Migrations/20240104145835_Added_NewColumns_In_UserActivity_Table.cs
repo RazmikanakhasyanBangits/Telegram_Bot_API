@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DataAccess.Migrations
+namespace Repository.Migrations
 {
     public partial class Added_NewColumns_In_UserActivity_Table : Migration
     {

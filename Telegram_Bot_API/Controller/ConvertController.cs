@@ -1,7 +1,7 @@
 ﻿using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Service.Model.Models;
 using Service.Model.Models.Rates;
-using Shared.Model;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
 using System.Threading.Tasks;

@@ -1,7 +1,8 @@
-﻿using DataAccess.Entity;
+﻿using Repository.Entity;
+using Repository.Entity;
 using System.Collections.Generic;
 
-namespace DataAccess.Repositories.Interfaces
+namespace Repository.Repositories.Interfaces
 {
     public interface IBankRepository : IGenericRepository<Bank>
     {

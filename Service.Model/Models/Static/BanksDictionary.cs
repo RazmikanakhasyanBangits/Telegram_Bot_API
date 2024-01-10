@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Shared.Models.Static;
+namespace Service.Model.Models.Static;
 
 public static class BanksDictionary
 {

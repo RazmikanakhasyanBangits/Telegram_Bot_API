@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Shared.Models.Location;
+using Service.Model.Models.Location;
 using System;
 using System.Net;
 using System.Net.Http;

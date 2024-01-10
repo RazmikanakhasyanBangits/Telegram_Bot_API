@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Repository.Entity;
 using System.Collections.Generic;
 
-#nullable disable
 
-namespace DataAccess.Entity
+namespace Repository.Entity
 {
     public partial class Currency
     {

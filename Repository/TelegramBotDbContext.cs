@@ -1,15 +1,7 @@
-﻿using DataAccess.Entity;
-using DataAccess.Models;
+﻿using Repository.Entity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System.Data.Entity.Infrastructure;
-using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace DataAccess
+namespace Repository
 {
     public partial class TelegramBotDbContext : DbContext
     {
@@ -26,7 +18,7 @@ namespace DataAccess
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.UseSqlServer("");
+                optionsBuilder.UseSqlServer("server=localhost,1433;Database=Tech42_TelegramBotDB;User Id=sa;Password=Q!w2e3r4t5,Trusted_Connection=True,TrustServerCertificate=True;");
             }
         }
         public virtual DbSet<Bank> Banks { get; set; }

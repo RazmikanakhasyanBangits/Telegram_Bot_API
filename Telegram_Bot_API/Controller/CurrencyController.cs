@@ -1,8 +1,8 @@
 ﻿using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Shared.Models.Currency;
-using Shared.Models.Rates;
+using Service.Model.Models.Currency;
+using Service.Model.Models.Rates;
 using System.Collections.Generic;
 
 namespace API.Controller

@@ -1,7 +1,7 @@
-﻿using DataAccess.Entity;
-using DataAccess.Repositories.Interfaces;
+﻿using Repository.Repositories.Interfaces;
+using Repository.Entity;
 
-namespace DataAccess.Repositories.Implementation;
+namespace Repository.Repositories.Implementation;
 
 public class ChatDetailRepository : GenericRepository<ChatDetail>, IChatDetailRepository
 {

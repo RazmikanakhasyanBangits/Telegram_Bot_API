@@ -1,4 +1,5 @@
-﻿namespace Shared.Models.Location;
+﻿
+namespace Service.Model.Models.Location;
 
 public class GeometryModel
 {

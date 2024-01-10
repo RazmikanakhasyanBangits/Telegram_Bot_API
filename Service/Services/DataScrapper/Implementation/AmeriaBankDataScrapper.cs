@@ -6,8 +6,8 @@ using Core.Services.Implementations;
 using Core.Services.Interfaces;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Configuration;
-using Shared.Models;
-using Shared.Models.Location;
+using Service.Model.Models;
+using Service.Model.Models.Location;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,7 +16,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Services.DataScrapper.Impl
+namespace Service.Services.DataScrapper.Implementation
 {
     public class AmeriaBankDataScrapper : IDataScrapper, ILocation
     {

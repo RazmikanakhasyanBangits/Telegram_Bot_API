@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Core.Services.Interfaces;
-using DataAccess.Repositories.Interfaces;
-using Shared.Models;
+using Repository.Repositories.Interfaces;
+using Service.Model.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

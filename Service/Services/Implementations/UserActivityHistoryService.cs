@@ -1,12 +1,12 @@
 ﻿using Core.Services.Interfaces;
-using DataAccess.Entity;
-using DataAccess.Repositories.Interfaces;
+using Repository.Entity;
+using Repository.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.Enum;
 using System;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using Service.Model.Enum;
 
 namespace Core.Services.Implementations;
 
