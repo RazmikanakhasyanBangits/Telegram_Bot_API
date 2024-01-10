@@ -2,19 +2,14 @@ using Api.TelegramBot.GrpcServer;
 using API.Extensions;
 using API.GrpcServer;
 using Core;
-using Core.Services.Bot;
-using Core.Services.Bot.Abstraction;
-using Core.Services.DataScrapper.Impl;
-using Core.Services.Implementations;
-using Core.Services.Interfaces;
 using DataAccess;
-using DataAccess.Repositories.Implementation;
-using DataAccess.Repositories.Interfaces;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Shared.Infrastructure;
+using Service.Model.Models.Rates;
 using Shared.Models.Static;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -27,6 +22,10 @@ builder.Services.AddGrpc();
 ServiceRegistry.RegisterServices(builder.Services);
 RepositoryRegistry.RegisterRepositories(builder.Services);
 RepositoryRegistry.RegisterDbContext(builder.Services, builder.Configuration["ConnectionStrings:Default"]);
+
+
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<GetAllRatesRequestModelValidator>();
 
 Log.Logger = new LoggerConfiguration()
            .WriteTo.File("log-.txt", rollingInterval: RollingInterval.Day)
