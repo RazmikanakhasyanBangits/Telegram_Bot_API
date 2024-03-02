@@ -20,7 +20,7 @@ public class UserActivityHistory
     public string Bio { get; set; }
     public string Description { get; set; }
     public ICollection<ChatDetail> ChatDetails { get; set; }
-    public IList<UserCurrencySetting> UserCurrencySettings { get; set; }
+    public List<UserCurrencySetting> UserCurrencySettings { get; set; }
     public DateTime CreationDate { get; set; }
     public DateTime LastUpdateDate { get; set; }
 }

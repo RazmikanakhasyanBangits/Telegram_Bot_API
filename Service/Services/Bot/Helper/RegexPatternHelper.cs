@@ -11,7 +11,8 @@ public static class RegexPatternHelper
     private static Dictionary<Regex, string> Patterns = new Dictionary<Regex, string>
     {
         { new Regex(@"^[A-Z]{3}-[A-Z]{3}:\d+$"),"GetPairRate"},
-        { new Regex(@"^[A-Za-z]{3}\s*-\s*[A-Za-z]{3}$"),"AddCurrencyConfiguration"}
+        { new Regex(@"^[A-Za-z]{3}\s*-\s*[A-Za-z]{3}$"),"AddCurrencyConfiguration"},
+        { new Regex(@"^[A-Za-z]{3}-[A-Za-z]{3}:X$"),"RemoveCurrencyConfiguration"},
     };
 
     public static string GetCommandFromText(Update update)

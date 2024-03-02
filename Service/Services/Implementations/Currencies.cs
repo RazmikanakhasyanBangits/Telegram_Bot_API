@@ -21,7 +21,7 @@ namespace Core.Services.Implementations
         {
             from = string.IsNullOrEmpty(from) ? "USD" : from;
             to = string.IsNullOrEmpty(to) ? _baseCurrency : to;
-            return await _convertRepository.ConvertAsync(from, to, amount);
+            return await _convertRepository.ConvertAsync(from.Trim(), to.Trim(), amount);
         }
 
         public async Task<List<CurrenciesConvertDetails>> GetConvertInfoForAllCurrencies(string currency, double exchangedValue)

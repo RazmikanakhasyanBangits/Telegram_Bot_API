@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace Repository.Repositories.Implementation
 {
-    public class CurrencyRepository : ICurrencyRepository
+    public class CurrencyRepository :GenericRepository<Currency>,  ICurrencyRepository
     {
         private readonly ExchangeBotDbContext _context;
-        public CurrencyRepository(ExchangeBotDbContext context)
+        public CurrencyRepository(ExchangeBotDbContext context):base(context)
         {
             _context = context;
         }
