@@ -2,7 +2,4 @@
 
 public interface ICommandHandler
 {
-    void ReStartBot();
-    void StartBot();
-    void StopBot();
 }

@@ -30,12 +30,10 @@ namespace Api.TelegramBot.GrpcServer
         }
         public override Task<ReStartBotGrpcResponse> ReStartBot(ReStartBotGrpcRequest request, ServerCallContext context)
         {
-            commandHandler.ReStartBot();
             return Task.FromResult(new ReStartBotGrpcResponse());
         }
         public override Task<StopBotGrpcResponse> StopBot(StopBotGrpcRequest request, ServerCallContext context)
         {
-            commandHandler.StopBot();
             return Task.FromResult(new StopBotGrpcResponse());
         }
     }

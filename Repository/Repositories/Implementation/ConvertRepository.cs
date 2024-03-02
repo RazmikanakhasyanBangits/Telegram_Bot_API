@@ -9,11 +9,11 @@ namespace Repository.Repositories.Implementation
 {
     public class ConvertRepository : IConvertRepository
     {
-        private readonly TelegramBotDbContext _dBModel;
+        private readonly ExchangeBotDbContext _dBModel;
         private readonly IBestRatesRepository _bestRateRepository;
         private readonly string _baseCurrency;
 
-        public ConvertRepository(TelegramBotDbContext dBModel, IBestRatesRepository bestRatesRepository,
+        public ConvertRepository(ExchangeBotDbContext dBModel, IBestRatesRepository bestRatesRepository,
             ISettingsProvider settingsProvider)
         {
             _dBModel = dBModel;

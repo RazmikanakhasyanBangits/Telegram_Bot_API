@@ -20,6 +20,10 @@ using System.Linq;
 using Service.Model.Infrastructure;
 using Service.Model.Models.Static;
 using Service.Services.DataScrapper.Implementation;
+using Repository.Repositories.Interfaces;
+using Repository.Repositories.Implementation;
+using Service.Services.Interfaces;
+using Service.Services.Implementations;
 
 namespace Core
 {
@@ -36,6 +40,7 @@ namespace Core
             services.AddScoped<ISettingsProvider, ApiSettingsProvider>();
             services.AddScoped<ILocation, Location>();
             services.AddScoped<ILocationService, LocationService>();
+            services.AddScoped<ICurrencySettingService, CurrencySettingServicea>();
             services.AddHostedService<TelegramCommandHandler>();
             services.AddSingleton<ICommandHandler, TelegramCommandHandler>();
             services.AddScoped<AmeriaBankDataScrapper>();

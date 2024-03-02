@@ -5,7 +5,7 @@ namespace Repository.Repositories.Implementation;
 
 public class LocationRepository : GenericRepository<BankLocation>, ILocationRepository
 {
-    public LocationRepository(TelegramBotDbContext context) : base(context)
+    public LocationRepository(ExchangeBotDbContext context) : base(context)
     {
     }
 }

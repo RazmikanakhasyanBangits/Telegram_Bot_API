@@ -9,8 +9,8 @@ namespace Repository.Repositories.Implementation
 {
     public class RatesRepository : IRatesRepository
     {
-        private readonly TelegramBotDbContext _db;
-        public RatesRepository(TelegramBotDbContext db)
+        private readonly ExchangeBotDbContext _db;
+        public RatesRepository(ExchangeBotDbContext db)
         {
             _db = db;
         }

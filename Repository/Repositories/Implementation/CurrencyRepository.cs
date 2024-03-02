@@ -6,8 +6,8 @@ namespace Repository.Repositories.Implementation
 {
     public class CurrencyRepository : ICurrencyRepository
     {
-        private readonly TelegramBotDbContext _context;
-        public CurrencyRepository(TelegramBotDbContext context)
+        private readonly ExchangeBotDbContext _context;
+        public CurrencyRepository(ExchangeBotDbContext context)
         {
             _context = context;
         }

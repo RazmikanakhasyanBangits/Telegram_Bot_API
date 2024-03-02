@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Repository.Migrations
 {
-    [DbContext(typeof(TelegramBotDbContext))]
+    [DbContext(typeof(ExchangeBotDbContext))]
     [Migration("20211103202250_Initial")]
     partial class Initial
     {

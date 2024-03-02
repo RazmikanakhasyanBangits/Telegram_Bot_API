@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
-    public partial class TelegramBotDbContext : DbContext
+    public partial class ExchangeBotDbContext : DbContext
     {
-        public TelegramBotDbContext()
+        public ExchangeBotDbContext()
         {
         }
 
-        public TelegramBotDbContext(DbContextOptions<TelegramBotDbContext> options)
+        public ExchangeBotDbContext(DbContextOptions<ExchangeBotDbContext> options)
             : base(options)
         {
         }
@@ -18,7 +18,7 @@ namespace Repository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("server=localhost,1433;Database=Tech42_TelegramBotDB;User Id=sa;Password=Q!w2e3r4t5,Trusted_Connection=True,TrustServerCertificate=True;");
+                optionsBuilder.UseSqlServer("Server=PUNCK2021;Database=ExchangeBotDb;Integrated Security=True;TrustServerCertificate=True;");
             }
         }
         public virtual DbSet<Bank> Banks { get; set; }
@@ -28,6 +28,7 @@ namespace Repository
         public DbSet<BankLocation> Locations { get; set; }
         public DbSet<UserActivityHistory> UsersActivityHistories { get; set; }
         public DbSet<ChatDetail> ChatDetails { get; set; }
+        public DbSet<UserCurrencySetting> UserCurrencySettings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -116,6 +117,7 @@ namespace Repository
             modelBuilder.AddUserRole();
             modelBuilder.AddUserStatus();
             modelBuilder.ConfigChatDetails();
+            modelBuilder.AddUserCurrencySettingEfConfig();
 
             OnModelCreatingPartial(modelBuilder);
         }

@@ -16,11 +16,12 @@ namespace Repository
             services.AddScoped<IBestRatesRepository, BestRatesRepository>();
             services.AddScoped<IUserActivityHistoryRepository, UserActivityHistoryRepository>();
             services.AddScoped<IChatDetailRepository, ChatDetailRepository>();
+            services.AddScoped<ICurrencySettingsReporisoty, CurrencySettingsRepository>();
             services.AddTransient<ILocationRepository, LocationRepository>();
         }
         public static void RegisterDbContext(IServiceCollection services, string connectionString)
         {
-            _ = services.AddDbContext<TelegramBotDbContext>(_ => _.UseSqlServer(connectionString));
+            _ = services.AddDbContext<ExchangeBotDbContext>(_ => _.UseSqlServer(connectionString));
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Repository.Entity;
 using Repository.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Repository.Entity;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,8 +8,8 @@ namespace Repository.Repositories.Implementation
 {
     public class BankRepository : GenericRepository<Bank>, IBankRepository
     {
-        private readonly TelegramBotDbContext _context;
-        public BankRepository(TelegramBotDbContext context) : base(context)
+        private readonly ExchangeBotDbContext _context;
+        public BankRepository(ExchangeBotDbContext context) : base(context)
         {
             _context = context;
         }

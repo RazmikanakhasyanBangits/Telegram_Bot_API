@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Repository.Migrations
 {
-    [DbContext(typeof(TelegramBotDbContext))]
+    [DbContext(typeof(ExchangeBotDbContext))]
     [Migration("20240104145835_Added_NewColumns_In_UserActivity_Table")]
     partial class Added_NewColumns_In_UserActivity_Table
     {

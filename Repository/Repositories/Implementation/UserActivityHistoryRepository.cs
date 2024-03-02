@@ -5,5 +5,5 @@ namespace Repository.Repositories.Implementation;
 
 public class UserActivityHistoryRepository : GenericRepository<UserActivityHistory>, IUserActivityHistoryRepository
 {
-    public UserActivityHistoryRepository(TelegramBotDbContext context) : base(context) { }
+    public UserActivityHistoryRepository(ExchangeBotDbContext context) : base(context) { }
 }

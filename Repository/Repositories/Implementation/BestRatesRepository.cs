@@ -12,9 +12,9 @@ namespace Repository.Repositories.Implementation
 {
     public class BestRatesRepository : IBestRatesRepository
     {
-        private readonly TelegramBotDbContext _dBModel;
+        private readonly ExchangeBotDbContext _dBModel;
         private readonly string _baseCurrency;
-        public BestRatesRepository(TelegramBotDbContext dBModel, ISettingsProvider settingsProvider)
+        public BestRatesRepository(ExchangeBotDbContext dBModel, ISettingsProvider settingsProvider)
         {
             _dBModel = dBModel;
             _baseCurrency = settingsProvider.BaseCurrency;

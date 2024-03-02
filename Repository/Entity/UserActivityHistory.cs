@@ -1,7 +1,6 @@
 ﻿// Ignore Spelling: Bio
 
 using Microsoft.EntityFrameworkCore;
-using Repository.Entity;
 using System;
 using System.Collections.Generic;
 
@@ -21,6 +20,7 @@ public class UserActivityHistory
     public string Bio { get; set; }
     public string Description { get; set; }
     public ICollection<ChatDetail> ChatDetails { get; set; }
+    public IList<UserCurrencySetting> UserCurrencySettings { get; set; }
     public DateTime CreationDate { get; set; }
     public DateTime LastUpdateDate { get; set; }
 }
@@ -31,6 +31,7 @@ public static class UserActivityHistoryConfig
     {
         _ = builder.Entity<UserActivityHistory>(opt =>
         {
+
             _ = opt.HasKey(x => x.Id);
 
             _ = opt.Property(x => x.StatusId).HasDefaultValue(1);

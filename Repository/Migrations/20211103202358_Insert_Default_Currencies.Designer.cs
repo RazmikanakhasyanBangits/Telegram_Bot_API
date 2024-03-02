@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Repository.Migrations
 {
-    [DbContext(typeof(TelegramBotDbContext))]
+    [DbContext(typeof(ExchangeBotDbContext))]
     [Migration("20211103202358_Insert_Default_Currencies")]
     partial class Insert_Default_Currencies
     {

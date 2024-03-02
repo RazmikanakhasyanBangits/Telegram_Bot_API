@@ -1,5 +1,4 @@
 ﻿using Repository.Entity;
-using Repository.Entity;
 using System.Collections.Generic;
 
 namespace Repository.Repositories.Interfaces

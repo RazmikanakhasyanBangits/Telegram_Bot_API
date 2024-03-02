@@ -5,5 +5,5 @@ namespace Repository.Repositories.Implementation;
 
 public class ChatDetailRepository : GenericRepository<ChatDetail>, IChatDetailRepository
 {
-    public ChatDetailRepository(TelegramBotDbContext context) : base(context) { }
+    public ChatDetailRepository(ExchangeBotDbContext context) : base(context) { }
 }

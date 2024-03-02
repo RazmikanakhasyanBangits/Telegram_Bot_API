@@ -52,7 +52,7 @@ public class RateActionsServer : RateActions.RateActionsBase
                 //ignore
             }
         }
-        RateService _service = new(new RatesRepository(new TelegramBotDbContext()));
+        RateService _service = new(new RatesRepository(new ExchangeBotDbContext()));
 
         await _service.BulkInsert(all.Select(_ => new RateModel
         {

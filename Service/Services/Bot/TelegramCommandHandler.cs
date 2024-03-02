@@ -1,13 +1,11 @@
 ﻿using Core.Services.Bot.Abstraction;
 using Core.Services.Bot.Helper;
-using Core.Services.Implementations;
 using Core.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Service.Services.DataScrapper.Implementation;
+using Service.Services.Bot.Helper;
 using System;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot;
@@ -29,9 +27,9 @@ public class TelegramCommandHandler : IHostedService, ICommandHandler
 
     public TelegramCommandHandler(IConfiguration configuration, IServiceScopeFactory scopeFactory)
     {
+        _scopeFactory = scopeFactory;
         _token = configuration["token"];
         Bot = new TelegramBotClient(_token);
-        _scopeFactory = scopeFactory;
     }
 
     private async Task Bot_OnLocation(Update update)
@@ -81,88 +79,17 @@ public class TelegramCommandHandler : IHostedService, ICommandHandler
             using (IServiceScope scope = _scopeFactory.CreateScope())
             {
                 IServiceProvider scopedServices = scope.ServiceProvider;
-                IUserActivityHistoryService userActivityHistory = scopedServices.GetRequiredService<IUserActivityHistoryService>();
-                IBankService bankService = scopedServices.GetRequiredService<IBankService>();
-                ILocation location = scopedServices.GetRequiredService<ILocation>();
                 CommandSwitcher commandSwitcher = scopedServices.GetRequiredService<CommandSwitcher>();
 
-
-                if (await userActivityHistory.IsUserBlockedAsync(update.Message.Chat.Id))
-                {
-                    await Bot.SendTextMessageAsync(chatId: update.Message.Chat.Id, text: "🚫You Are Currently Blocked🚫");
-                    return;
-                }
-                try
-                {
-                    string result = string.Empty;
-                    string pattern = @"(\d+)([A-Z]{3})([:]([A-Z]{3})){0,1}";
-                    Regex regex = new(pattern);
-                    if (regex.IsMatch(update.Message.Text))
-                    {
-
-                        GroupCollection match = regex.Match(update.Message.Text).Groups;
-                        string from = match[2].Value;
-                        double amount = double.Parse(match[1].Value);
-                        string to = match[4].Value;
-                        _ = await Bot.SendTextMessageAsync(update.Message.Chat.Id, await bankService.BestChange(from, to, amount));
-                        return;
-                    }
-                    switch (update.Message.Text)
-                    {
-                        case "/start":
-                            ReplyKeyboardMarkup buttons = ButtonSettings.ShowButtons();
-                            _ = await Bot.SendTextMessageAsync(
-                            update.Message.Chat.Id,
-                            "Processing...",
-                            replyMarkup: buttons);
-                            _ = await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Done!");
-                            await userActivityHistory.AddChatHistory(update, result);
-                            break;
-                        case "/getLocation":
-
-                            result = await location.GetLocationsAsync(nameof(AmeriaBankDataScrapper));
-                            _ = await Bot.SendTextMessageAsync(update.Message.Chat.Id, result);
-                            await userActivityHistory.AddChatHistory(update, result);
-
-                            break;
-                        case "/location":
-                            KeyboardButton request = new("Փոխանցել") { RequestLocation = true };
-                            ReplyKeyboardMarkup replyMarkup = new(new[] { new[] { request } });
-
-                            _ = await Bot.SendTextMessageAsync(
-                                chatId: update.Message.Chat,
-                                text: "Փոխանցեք ձեր գտնվելու վայրը սեղմելով ներքևում գտնվող կոճակին:",
-                                replyMarkup: replyMarkup);
-                            await userActivityHistory.AddChatHistory(update, result);
-
-                            break;
-                        default:
-                            result = CommandSwitcher.CommandDictionary[update.Message.Text].Invoke(update.Message.Chat.Id);
-                            _ = await Bot.SendTextMessageAsync(update.Message.Chat.Id, result);
-                            await userActivityHistory.AddChatHistory(update, result);
-
-                            break;
-                    }
-                }
-                catch (Exception)
-                {
-                    _ = await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Անհասկանալի հրաման, խնդրում ենք մուտքարգել հրամաններից որևիցե մեկը\n/all\n/allBest\n/available");
-                }
+                var regexResult = RegexPatternHelper.GetCommandFromText(update);
+                update.Message.Caption = update.Message.Text;
+                update.Message.Text = regexResult is null?update.Message.Text : regexResult;
+                await commandSwitcher.SwitchAsync(update,Bot);
             }
         }
     }
 
-    public void StartBot()
-    {
-    }
-
-    public void ReStartBot()
-    {
-    }
-
-    public void StopBot()
-    {
-    }
+  
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
