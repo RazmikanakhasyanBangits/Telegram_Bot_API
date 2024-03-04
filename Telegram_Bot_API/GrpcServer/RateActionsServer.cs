@@ -1,12 +1,12 @@
-﻿using Core.Services.Implementations;
+﻿using Service.Services.Implementations;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
-using Core.Services.DataScrapper.Abstraction;
-using Core.Services.DataScrapper.Impl;
+using Service.Services.DataScrapper.Abstraction;
+using Service.Services.DataScrapper.Impl;
 using UserActionsProto;
 using Service.Model.Models;
 using Repository.Repositories.Implementation;
@@ -14,7 +14,7 @@ using Repository;
 using Repository.Entity;
 using Service.Services.DataScrapper.Implementation;
 
-namespace API.GrpcServer;
+namespace Api.TelegramBot.GrpcServer;
 
 public class RateActionsServer : RateActions.RateActionsBase
 {
@@ -22,7 +22,7 @@ public class RateActionsServer : RateActions.RateActionsBase
 
     public RateActionsServer(IConfiguration configuration)
     {
-        _configuration=configuration;
+        _configuration = configuration;
     }
 
     public override async Task<Empty> UpdateRates(Empty request, ServerCallContext context)

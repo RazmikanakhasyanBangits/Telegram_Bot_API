@@ -1,7 +1,6 @@
-﻿namespace Service.Model.Infrastructure
+﻿namespace Service.Model.Infrastructure;
+
+public interface ISettingsProvider
 {
-    public interface ISettingsProvider
-    {
-        string BaseCurrency { get; }
-    }
+    string BaseCurrency { get; }
 }

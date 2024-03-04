@@ -1,11 +1,11 @@
-﻿using Core.Services.Interfaces;
+﻿using Service.Services.Interfaces;
 using Repository.Repositories.Interfaces;
 using Repository.Entity;
 using Service.Model.Models.Currency;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Core.Services.Implementations
+namespace Service.Services.Implementations
 {
     public class CurrencyService : ICurrencyService
     {

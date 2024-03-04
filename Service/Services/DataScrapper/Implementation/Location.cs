@@ -1,8 +1,8 @@
 ﻿// Ignore Spelling: DataImp
 
-using Core.Services.DataScrapper.Impl;
-using Core.Services.Implementations;
-using Core.Services.Interfaces;
+using Service.Services.DataScrapper.Impl;
+using Service.Services.Implementations;
+using Service.Services.Interfaces;
 using Service.Model.Models.Location;
 using Service.Model.Models.Static;
 using System.Collections.Generic;

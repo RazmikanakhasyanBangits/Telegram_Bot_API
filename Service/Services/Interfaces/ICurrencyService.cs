@@ -1,7 +1,7 @@
 ﻿using Service.Model.Models.Currency;
 using System.Collections.Generic;
 
-namespace Core.Services.Interfaces;
+namespace Service.Services.Interfaces;
 
 public interface ICurrencyService
 {

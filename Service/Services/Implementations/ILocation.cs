@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Core.Services.Implementations;
+namespace Service.Services.Implementations;
 
 public interface ILocation
 {

@@ -1,14 +1,13 @@
+using Api.TelegramBot.Extensions;
 using Api.TelegramBot.GrpcServer;
-using API.Extensions;
-using API.GrpcServer;
-using Core;
-using Repository;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Repository;
 using Serilog;
+using Service;
 using Service.Model.Models.Rates;
 using Service.Model.Models.Static;
 

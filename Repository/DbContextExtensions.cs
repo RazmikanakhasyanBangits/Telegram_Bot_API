@@ -15,6 +15,5 @@ public static class DbContextExtensions
         _ = builder.Entity<UserRole>().HasData(
          new UserRole { Id = 1, Name = UserRoleEnum.Admin.ToString() },
          new UserRole { Id = 2, Name = UserRoleEnum.User.ToString() });
-
     }
 }

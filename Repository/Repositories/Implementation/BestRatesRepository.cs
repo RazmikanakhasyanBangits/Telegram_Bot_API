@@ -8,67 +8,66 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Repository.Repositories.Implementation
+namespace Repository.Repositories.Implementation;
+
+public class BestRatesRepository : IBestRatesRepository
 {
-    public class BestRatesRepository : IBestRatesRepository
+    private readonly ExchangeBotDbContext _dBModel;
+    private readonly string _baseCurrency;
+    public BestRatesRepository(ExchangeBotDbContext dBModel, ISettingsProvider settingsProvider)
     {
-        private readonly ExchangeBotDbContext _dBModel;
-        private readonly string _baseCurrency;
-        public BestRatesRepository(ExchangeBotDbContext dBModel, ISettingsProvider settingsProvider)
+        _dBModel = dBModel;
+        _baseCurrency = settingsProvider.BaseCurrency;
+    }
+    public async Task<IEnumerable<BestRateModel>> GetBestRatesAsync()
+    {
+
+        List<BestRateModel> bestRates = new();
+        List<string> currencies = await _dBModel.Currencies
+            .Where(x => x.Code != _baseCurrency)
+            .Select(_ => _.Code).ToListAsync();
+
+        int lastIteration = _dBModel.Rates.Max(_ => _.Iteration);
+        IQueryable<RateModel> lastRates = _dBModel.Rates.Where(_ => _.Iteration == lastIteration);
+
+
+        foreach (string currency in currencies)
         {
-            _dBModel = dBModel;
-            _baseCurrency = settingsProvider.BaseCurrency;
-        }
-        public async Task<IEnumerable<BestRateModel>> GetBestRatesAsync()
-        {
+            BestRateModel bestRateModel = new();
 
-            List<BestRateModel> bestRates = new();
-            List<string> currencies = await _dBModel.Currencies
-                .Where(x => x.Code != _baseCurrency)
-                .Select(_ => _.Code).ToListAsync();
+            IIncludableQueryable<RateModel, Bank> currencyRate = lastRates
+                       .Where(_ => _.FromCurrency == currency && _.ToCurrency == _baseCurrency)
+                       .Include(_ => _.Bank);
 
-            int lastIteration = _dBModel.Rates.Max(_ => _.Iteration);
-            IQueryable<RateModel> lastRates = _dBModel.Rates.Where(_ => _.Iteration == lastIteration);
+            RateModel currencyRateBuy = await currencyRate
+                       .OrderByDescending(_ => _.BuyValue)
+                       .FirstOrDefaultAsync();
 
-
-            foreach (string currency in currencies)
+            RateModel currencyRateSell = await currencyRate
+                .OrderBy(_ => _.SellValue)
+                .FirstOrDefaultAsync();
+            if (currencyRateBuy != null)
             {
-                BestRateModel bestRateModel = new();
+                bestRateModel.BestBankForBuying = currencyRateBuy.Bank.BankName;
+                bestRateModel.BuyValue = currencyRateBuy.BuyValue;
+                bestRateModel.LastUpdated = currencyRateBuy.LastUpdated;
 
-                IIncludableQueryable<RateModel, Bank> currencyRate = lastRates
-                           .Where(_ => _.FromCurrency == currency && _.ToCurrency == _baseCurrency)
-                           .Include(_ => _.Bank);
-
-                RateModel currencyRateBuy = await currencyRate
-                           .OrderByDescending(_ => _.BuyValue)
-                           .FirstOrDefaultAsync();
-
-                RateModel currencyRateSell = await currencyRate
-                    .OrderBy(_ => _.SellValue)
-                    .FirstOrDefaultAsync();
-                if (currencyRateBuy != null)
-                {
-                    bestRateModel.BestBankForBuying = currencyRateBuy.Bank.BankName;
-                    bestRateModel.BuyValue = currencyRateBuy.BuyValue;
-                    bestRateModel.LastUpdated = currencyRateBuy.LastUpdated;
-
-                }
-
-                if (currencyRateSell != null)
-                {
-                    bestRateModel.BestBankForSelling = currencyRateSell.Bank.BankName;
-                    bestRateModel.SellValue = currencyRateSell.SellValue;
-                    bestRateModel.LastUpdated = currencyRateSell.LastUpdated;
-                }
-
-                if (currencyRateBuy != null || currencyRateSell != null)
-                {
-                    bestRateModel.FromCurrency = currency;
-                    bestRateModel.ToCurrency = _baseCurrency;
-                    bestRates.Add(bestRateModel);
-                }
             }
-            return bestRates;
+
+            if (currencyRateSell != null)
+            {
+                bestRateModel.BestBankForSelling = currencyRateSell.Bank.BankName;
+                bestRateModel.SellValue = currencyRateSell.SellValue;
+                bestRateModel.LastUpdated = currencyRateSell.LastUpdated;
+            }
+
+            if (currencyRateBuy != null || currencyRateSell != null)
+            {
+                bestRateModel.FromCurrency = currency;
+                bestRateModel.ToCurrency = _baseCurrency;
+                bestRates.Add(bestRateModel);
+            }
         }
+        return bestRates;
     }
 }

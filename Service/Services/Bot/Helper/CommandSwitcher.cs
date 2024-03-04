@@ -1,9 +1,9 @@
-﻿using Core.Services.Implementations;
-using Core.Services.Interfaces;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Service.Model.Models.CurrencySettings;
+using Service.Model.Models.Static;
 using Service.Services.DataScrapper.Implementation;
+using Service.Services.Implementations;
 using Service.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,10 +11,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
-using UserActionsProto;
 
-namespace Core.Services.Bot.Helper;
+namespace Service.Services.Bot.Helper;
 
 public class CommandSwitcher
 {
@@ -33,9 +33,9 @@ public class CommandSwitcher
         _scopeFactory = scopeFactory;
         CommandDictionary = new Dictionary<string, Func<long, string>>
         {
-            {"/All".ToLower(), x=> bankService.GetAll() },
-            {"/AllBest".ToLower(), x=> bankService.GetAllBest() },
-            {"/Available".ToLower(), x=> bankService.GetAvailable()},
+            {Commands.All.ToLower(), x=> bankService.GetAll() },
+            {Commands.AllBest.ToLower(), x=> bankService.GetAllBest() },
+            {Commands.Available.ToLower(), x=> bankService.GetAvailable()},
         };
 
     }
@@ -50,39 +50,39 @@ public class CommandSwitcher
             currencySetting = scopedServices.GetRequiredService<ICurrencySettingService>();
             if (await userActivityHistory.IsUserBlockedAsync(update.Message.Chat.Id))
             {
-                await Bot.SendTextMessageAsync(chatId: update.Message.Chat.Id, text: "🚫You Are Currently Blocked🚫");
+                await Bot.SendTextMessageAsync(chatId: update.Message.Chat.Id, text: Messages.YouAreCurrentlyBlocked);
                 return;
             }
             Dictionary<string, Func<Update, Task>> commandActions = new Dictionary<string, Func<Update, Task>>
             {
-                    { "/start".ToLower(), async update =>
+                    { Commands.Start.ToLower(), async update =>
                         {
                             var buttons = ButtonSettings.ShowButtons();
-                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Processing...", replyMarkup: buttons);
-                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Done!");
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, Messages.Processing, replyMarkup: buttons);
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, Messages.Done);
                             await userActivityHistory.AddChatHistory(update, string.Empty);
                         }
                     },
-                    { "/help".ToLower(),async update =>
+                    { Commands.Help.ToLower(),async update =>
                         {
-                            //TODO Write Help For Regex Commands List
+                            await Bot.SendTextMessageAsync(update.Message.Chat.Id, RegexPatternHelper.GenerateCurrencyPairHelpGuidance(),null,ParseMode.Html);
                         }
                     },
-                    { "/getLocation".ToLower(), async update =>
+                    { Commands.GetLocation.ToLower(), async update =>
                         {
                             var result = await location.GetLocationsAsync(nameof(AmeriaBankDataScrapper));
                             await Bot.SendTextMessageAsync(update.Message.Chat.Id, result);
                             await userActivityHistory.AddChatHistory(update, result);
                         }
                     },
-                    { "GetPairRate".ToLower(),async update =>
+                    { Commands.GetPairRate.ToLower(),async update =>
                         {
                              var currencies =  update.Message.Caption.Split("-");
                              var amount = Convert.ToDouble(currencies[1].Split(":").Last());
                         _ = await Bot.SendTextMessageAsync(update.Message.Chat.Id, await bankService.BestChange(currencies[0], currencies[1].Split(":").First(), amount));
                         }
                     },
-                    { "AddCurrencyConfiguration".ToLower(), async update =>
+                    { Commands.AddCurrencyConfiguration.ToLower(), async update =>
                         {
                             var currencies = update.Message.Caption.Split("-");
                             await currencySetting.ConfigureUserCurrencySettingsAsync(new ConfigureUserCurrencySettingsRequest
@@ -93,7 +93,7 @@ public class CommandSwitcher
                             });
                         }
                     },
-                    { "RemoveCurrencyConfiguration".ToLower(), async update =>
+                    { Commands.RemoveCurrencyConfiguration.ToLower(), async update =>
                         {
                             var splidetText = update.Message.Caption.Split(":");
                             var currencies = splidetText[0].Split("-");
@@ -105,18 +105,18 @@ public class CommandSwitcher
                             });
                         }
                     },
-                    { "/GetMyRatePairs".ToLower(), async update =>
+                    { Commands.GetPairRate.ToLower(), async update =>
                         {
                             await Bot.SendTextMessageAsync(update.Message.Chat.Id, await currencySetting.GetUserCurrencyRatesAsync(update.Message.From.Id));
                         }
                     },
-                    { "/location".ToLower(), async update =>
+                    { Commands.Location.ToLower(), async update =>
                         {
-                            KeyboardButton request = new KeyboardButton("Փոխանցել") { RequestLocation = true };
+                            KeyboardButton request = new KeyboardButton(Messages.PassItOn) { RequestLocation = true };
                             ReplyKeyboardMarkup replyMarkup = new ReplyKeyboardMarkup(new[] { new[] { request } });
                             await Bot.SendTextMessageAsync(
                             chatId: update.Message.Chat,
-                                text: "Փոխանցեք ձեր գտնվելու վայրը սեղմելով ներքևում գտնվող կոճակին:",
+                                text: Messages.SubmitLocation,
                                 replyMarkup: replyMarkup);
                             await userActivityHistory.AddChatHistory(update, string.Empty);
                         }
@@ -135,7 +135,7 @@ public class CommandSwitcher
             }
             else
             {
-                _ = await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Անհասկանալի հրաման, խնդրում ենք մուտքարգել հրամաններից որևիցե մեկը\n/all\n/allBest\n/available");
+                _ = await Bot.SendTextMessageAsync(update.Message.Chat.Id, Messages.UnknownCommand);
             }
         }
     }

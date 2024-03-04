@@ -1,40 +1,36 @@
 ﻿// Ignore Spelling: Api Grpc
-
-using Core.Services.Bot.Abstraction;
-using Core.Services.Interfaces;
 using Grpc.Core;
+using Service.Services.Interfaces;
 using System.Threading.Tasks;
 using UserActionsProto;
 
-namespace Api.TelegramBot.GrpcServer
+
+namespace Api.TelegramBot.GrpcServer;
+
+public class UserActionsServer : UserActions.UserActionsBase
 {
-    public class UserActionsServer : UserActions.UserActionsBase
+    private readonly IUserActivityHistoryService userActivityHistoryService;
+
+    public UserActionsServer(IUserActivityHistoryService userActivityHistoryService)
     {
-        private readonly IUserActivityHistoryService userActivityHistoryService;
-        private readonly ICommandHandler commandHandler;
+        this.userActivityHistoryService = userActivityHistoryService;
+    }
 
-        public UserActionsServer(IUserActivityHistoryService userActivityHistoryService, ICommandHandler commandHandler)
-        {
-            this.userActivityHistoryService = userActivityHistoryService;
-            this.commandHandler = commandHandler;
-        }
+    public override async Task<BlockUserGrpcResponseModel> BlockUser(BlockUserGrpcRequestModel request, ServerCallContext context)
+    {
+        return new BlockUserGrpcResponseModel { Status = await userActivityHistoryService.BlockUserAsync(request.UserName) };
+    }
 
-        public override async Task<BlockUserGrpcResponseModel> BlockUser(BlockUserGrpcRequestModel request, ServerCallContext context)
-        {
-            return new BlockUserGrpcResponseModel { Status = await userActivityHistoryService.BlockUserAsync(request.UserName) };
-        }
-
-        public override async Task<UnblockUserGrpcResponse> UnblockUser(UnblockUserGrpcRequest request, ServerCallContext context)
-        {
-            return new UnblockUserGrpcResponse { Status = await userActivityHistoryService.UnBlockUserAsync(request.UserName) };
-        }
-        public override Task<ReStartBotGrpcResponse> ReStartBot(ReStartBotGrpcRequest request, ServerCallContext context)
-        {
-            return Task.FromResult(new ReStartBotGrpcResponse());
-        }
-        public override Task<StopBotGrpcResponse> StopBot(StopBotGrpcRequest request, ServerCallContext context)
-        {
-            return Task.FromResult(new StopBotGrpcResponse());
-        }
+    public override async Task<UnblockUserGrpcResponse> UnblockUser(UnblockUserGrpcRequest request, ServerCallContext context)
+    {
+        return new UnblockUserGrpcResponse { Status = await userActivityHistoryService.UnBlockUserAsync(request.UserName) };
+    }
+    public override Task<ReStartBotGrpcResponse> ReStartBot(ReStartBotGrpcRequest request, ServerCallContext context)
+    {
+        return Task.FromResult(new ReStartBotGrpcResponse());
+    }
+    public override Task<StopBotGrpcResponse> StopBot(StopBotGrpcRequest request, ServerCallContext context)
+    {
+        return Task.FromResult(new StopBotGrpcResponse());
     }
 }

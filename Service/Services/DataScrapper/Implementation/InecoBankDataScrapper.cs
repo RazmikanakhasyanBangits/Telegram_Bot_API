@@ -1,9 +1,9 @@
 ﻿// Ignore Spelling: Ineco Online
 
-using Core.Helper;
-using Core.Services.DataScrapper.Abstraction;
-using Core.Services.Implementations;
-using Core.Services.Interfaces;
+using Service.Helper;
+using Service.Services.DataScrapper.Abstraction;
+using Service.Services.Implementations;
+using Service.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Service.Model.Models;
@@ -15,7 +15,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Services.DataScrapper.Impl;
+namespace Service.Services.DataScrapper.Impl;
 public class InecoBankDataScrapper : IDataScrapper, ILocation
 {
     private readonly IConfiguration _configuration;

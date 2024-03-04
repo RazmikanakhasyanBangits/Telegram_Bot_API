@@ -3,7 +3,7 @@ using Service.Model.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Core.Services.Interfaces;
+namespace Service.Services.Interfaces;
 
 public interface ICurrencies
 {

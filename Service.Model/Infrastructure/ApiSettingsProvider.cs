@@ -1,9 +1,8 @@
 ﻿// Ignore Spelling: Api
 
-namespace Service.Model.Infrastructure
+namespace Service.Model.Infrastructure;
+
+public class ApiSettingsProvider : ISettingsProvider
 {
-    public class ApiSettingsProvider : ISettingsProvider
-    {
-        public string BaseCurrency => "AMD";
-    }
+    public string BaseCurrency => "AMD";
 }

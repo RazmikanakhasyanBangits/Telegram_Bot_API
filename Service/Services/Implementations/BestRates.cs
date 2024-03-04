@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Core.Services.Interfaces;
+using Service.Services.Interfaces;
 using Repository.Repositories.Interfaces;
 using Service.Model.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Core.Services.Implementations
+namespace Service.Services.Implementations
 {
     public class BestRateService : IBestRateService
     {

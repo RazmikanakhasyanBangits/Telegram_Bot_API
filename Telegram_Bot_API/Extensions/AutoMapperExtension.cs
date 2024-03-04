@@ -1,13 +1,12 @@
-﻿using Core.Profiles;
+﻿using Service.Profiles;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace API.Extensions
+namespace Api.TelegramBot.Extensions;
+
+public static class AutoMapperExtension
 {
-    public static class AutoMapperExtension
+    public static void AddAutoMapperConfigurations(this IServiceCollection services)
     {
-        public static void AddAutoMapperConfigurations(this IServiceCollection services)
-        {
-            _ = services.AddAutoMapper(typeof(RatesProfile));
-        }
+        _ = services.AddAutoMapper(typeof(RatesProfile));
     }
 }

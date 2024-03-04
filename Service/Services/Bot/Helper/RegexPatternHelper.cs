@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using Telegram.Bot.Types;
 
@@ -24,5 +24,26 @@ public static class RegexPatternHelper
         return command.Value;
     }
 
+    public static string GenerateCurrencyPairHelpGuidance()
+    {
+        var response = new StringBuilder();
+
+
+        response.AppendLine("<i>To find the exchange rate for converting from <b>USD</b> (your starting currency) to <b>AMD</b> (your target currency), simply enter the amount you want to convert (e.g., <b>100 USD</b>)</i>");
+        response.AppendLine("✔️ USD-AMD:<b>100</b>");
+        response.AppendLine("✔️ EUR-USD:<b>150</b>\n");
+        response.AppendLine("                                                                                                                                                                       ");
+        response.AppendLine("To add currency pairs to your configuration, specify the starting currency (<b>USD</b>) and the target currency (<b>AMD</b>)");
+        response.AppendLine("✔️ <b>USD</b>-<b>AMD</b>");
+        response.AppendLine("✔️ <b>EUR</b>-<b>USD</b>\n");
+
+        response.AppendLine("                                                                                                              ");
+        response.AppendLine("To remove currency pairs from your configuration, specify the starting currency (<b>USD</b>) and the target currency (<b>AMD</b>), followed by <b>\":X\"</b> to indicate removal");
+        response.AppendLine("✔️ <b>USD</b>-<b>AMD</b>:<b>X</b>");
+        response.AppendLine("✔️ <b>EUR</b>-<b>USD</b>:<b>X</b>\n");
+        response.AppendLine("                                                                                                                                                           ");
+
+        return response.ToString();
+    }
 
 }

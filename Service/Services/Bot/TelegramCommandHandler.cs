@@ -1,10 +1,9 @@
-﻿using Core.Services.Bot.Abstraction;
-using Core.Services.Bot.Helper;
-using Core.Services.Interfaces;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Service.Services.Bot.Abstraction;
 using Service.Services.Bot.Helper;
+using Service.Services.Interfaces;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,7 +14,7 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using Location = Telegram.Bot.Types.Location;
 
-namespace Core.Services.Bot;
+namespace Service.Services.Bot;
 
 public class TelegramCommandHandler : IHostedService, ICommandHandler
 {

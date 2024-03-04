@@ -1,7 +1,7 @@
 ﻿using Service.Model.Models;
 using System.Collections.Generic;
 
-namespace Core.Services.DataScrapper.Abstraction
+namespace Service.Services.DataScrapper.Abstraction
 {
     public interface IDataScrapper
     {

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Core.Services.Interfaces;
+using Service.Services.Interfaces;
 using Repository.Repositories.Interfaces;
 using Repository.Entity;
 using Service.Model.Models.Location;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Core.Services.Implementations;
+namespace Service.Services.Implementations;
 
 public class LocationService : ILocationService
 {

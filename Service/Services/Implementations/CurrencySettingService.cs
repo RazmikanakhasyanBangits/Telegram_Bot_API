@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Azure.Core;
-using Core.Services.Implementations;
-using Core.Services.Interfaces;
+using Service.Services.Implementations;
+using Service.Services.Interfaces;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;

@@ -2,7 +2,7 @@
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 
-namespace Core.Services.Interfaces;
+namespace Service.Services.Interfaces;
 
 public interface IUserActivityHistoryService
 {

@@ -1,4 +1,4 @@
-﻿using Core.Services.Interfaces;
+﻿using Service.Services.Interfaces;
 using Repository.Entity;
 using Repository.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Service.Model.Enum;
 
-namespace Core.Services.Implementations;
+namespace Service.Services.Implementations;
 
 public class UserActivityHistoryService : IUserActivityHistoryService
 {

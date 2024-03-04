@@ -1,9 +1,9 @@
 ﻿// Ignore Spelling: Ameria DataImp
 
-using Core.Helper;
-using Core.Services.DataScrapper.Abstraction;
-using Core.Services.Implementations;
-using Core.Services.Interfaces;
+using Service.Helper;
+using Service.Services.DataScrapper.Abstraction;
+using Service.Services.Implementations;
+using Service.Services.Interfaces;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Configuration;
 using Service.Model.Models;

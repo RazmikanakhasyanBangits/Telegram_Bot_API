@@ -1,4 +1,4 @@
-﻿namespace Core.Services.Bot.Abstraction;
+﻿namespace Service.Services.Bot.Abstraction;
 
 public interface ICommandHandler
 {

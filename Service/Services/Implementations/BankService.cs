@@ -1,5 +1,5 @@
-﻿using Core.Helper;
-using Core.Services.Interfaces;
+﻿using Service.Helper;
+using Service.Services.Interfaces;
 using Repository.Entity;
 using Repository.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Services.Implementations
+namespace Service.Services.Implementations
 {
     public class BankService : IBankService
     {
